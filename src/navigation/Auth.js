@@ -10,16 +10,16 @@ const defaultState = {
   loginBy: null,
 };
 
-const reducer = (prevState, action) => { 
+const reducer = (prevState, action) => {
   switch (action.type) {
     case 'RESTORE_TOKEN':
       return {
         ...prevState,
-        userToken: action.token, 
+        userToken: action.token,
         isLoading: false,
       };
     case 'SIGN_IN':
-      return { 
+      return {
         ...prevState,
         isSignout: false,
         userToken: action.token,
@@ -27,17 +27,16 @@ const reducer = (prevState, action) => {
     case 'SIGN_OUT':
       return {
         ...prevState,
-        isSignout: true, 
+        isSignout: true,
         userToken: null,
       };
   }
 };
 
-const restoreToken = async (dispatch) => {
+const restoreToken = async dispatch => {
   let userToken;
   try {
     userToken = await AsyncStorage.getItem('USER_TOKEN');
-    console.log('e',userToken)
   } catch (e) {
     console.log(e);
   }

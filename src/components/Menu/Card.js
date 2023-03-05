@@ -1,11 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import TextComp from '../TextComp';
 import colors from '../../utilities/colors';
 import {SvgXml} from 'react-native-svg';
 import margins from '../../utilities/margins';
 
-const Card = ({item}) => {
+const Card = ({item, onPress = () => {}}) => {
   const xml = `
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M10 17L15 12" stroke=${colors.primary} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -13,17 +13,18 @@ const Card = ({item}) => {
   </svg>
   `;
   return (
-    <View style={styles.row}>
-      <View style={{flexDirection:'row',alignItems:'center'}}>
-        <SvgXml xml={item.image}></SvgXml>
+    <TouchableOpacity style={styles.row} onPress={onPress}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <SvgXml xml={item.image} />
         <TextComp
-        style={{marginLeft:margins.m5}}
+          style={{marginLeft: margins.m5}}
           text={item.name}
           type="medium"
-          color={colors.black}></TextComp>
+          color={colors.black}
+        />
       </View>
-      <SvgXml xml={xml}></SvgXml>
-    </View>
+      <SvgXml xml={xml} />
+    </TouchableOpacity>
   );
 };
 
@@ -34,10 +35,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#EFEFEF',
-    minHeight:70,
-    marginTop:margins.m5,
-    borderRadius:15,
-    padding:10,
-    alignItems:'center'
+    minHeight: 70,
+    marginTop: margins.m5,
+    borderRadius: 15,
+    padding: 10,
+    alignItems: 'center',
   },
 });

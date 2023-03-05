@@ -1,11 +1,54 @@
-import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, TextInput, View} from 'react-native';
+import React, {useContext, useState} from 'react';
 import colors from '../../utilities/colors';
 import Container from '../../components/Container';
 import TextComp from '../../components/TextComp';
 import Button from '../../components/Button';
 import TextInputComp from '../../components/TextInputComp';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthContext from '../../navigation/Auth';
+import toast from '../../utilities/toast';
+import {api} from '../../constant/api';
+import {stringMd5} from 'react-native-quick-md5';
+import {useUserStore} from '../../constant/store';
+
 const Index = ({navigation}) => {
+  const [setUser] = useUserStore(state => [state.setUser]);
+  const {signIn} = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const onLogin = async () => {
+    if (email === '' || password === '') {
+      toast('Please enter email and password');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await api.post('/admin', {
+        admin_email: email,
+        admin_password: stringMd5(password),
+      });
+      setLoading(false);
+      console.log(res.data);
+      if (res.status === 200) {
+        if (res.data.status === 'success') {
+          await AsyncStorage.setItem('USER_TOKEN', '123');
+          setUser(res.data.data);
+          signIn('123');
+        } else {
+          toast(res.data?.message);
+        }
+      } else {
+        toast(res.data?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <View
@@ -20,19 +63,30 @@ const Index = ({navigation}) => {
             fontSize={20}
             type="medium"
             color={colors.primary}
-            text="Welcome Back"></TextComp>
+            text="Welcome Back"
+          />
           <TextComp
             style={{textAlign: 'center'}}
             fontSize={12}
             color={colors.black}
-            text="Sign in you account"></TextComp>
+            text="Sign in you account"
+          />
         </View>
-        <TextInputComp placeholder="Email"></TextInputComp>
-        <TextInputComp type="password" placeholder="Password"></TextInputComp>
-        <Button
-          onPress={() => navigation.navigate('Tabnavigation')}
-          loading={false}
-          text="Login"></Button>
+        <TextInputComp
+          placeholder="Email"
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoComplete="email"
+          keyboardType="email-address"
+          type="email"
+          onChangeText={setEmail}
+        />
+        <TextInputComp
+          type="password"
+          placeholder="Password"
+          onChangeText={setPassword}
+        />
+        <Button onPress={onLogin} loading={loading} text="Login" />
       </View>
     </Container>
   );

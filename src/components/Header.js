@@ -8,12 +8,15 @@ import globalStyle from '../styles/globalStyle';
 const Header = ({color, text}) => {
   return (
     <View
-      style={[{height: '12%', backgroundColor: colors.primary, width: '100%'},globalStyle.rowCenter]}>
+      style={[
+        {height: '12%', backgroundColor: colors.primary, width: '100%'},
+        globalStyle.rowCenter,
+      ]}>
       <TextComp
         color={color}
         fontSize={fontSize.fs18}
         text={text}
-        style={{textTransform:'uppercase'}}
+        style={{textTransform: 'uppercase'}}
         type={'medium'}></TextComp>
     </View>
   );

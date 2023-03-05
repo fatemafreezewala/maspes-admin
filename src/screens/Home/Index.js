@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../../components/Header';
 import colors from '../../utilities/colors';
 import Container from '../../components/Container';
@@ -6,28 +6,59 @@ import SubContainer from '../../components/SubContainer';
 import SearchBar from '../../components/SearchBar';
 
 //demo Data
-import categories from '../../data/categories';
+// import categories from '../../data/categories';
 import FlatlistComp from '../../components/FlatListComp';
 import Categories from '../../components/Home/Categories';
 import Fab from '../../components/Fab';
+import {api} from '../../constant/api';
 
 const Index = ({navigation}) => {
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      setLoading(true);
+      const res = await api.get('/category');
+      setLoading(false);
+      if (res.status === 200) {
+        if (res.data.status === 'success') {
+          setCategories(res.data.data);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const renderCategories = ({item}) => (
     <Categories
-      onPress={() => navigation.navigate('Products')}
-      item={item}></Categories>
+      onPress={() => {
+        console.log('category', item);
+        navigation.navigate('Products', {
+          category: item,
+        });
+      }}
+      item={item}
+      fetchCategories={fetchCategories}
+    />
   );
 
   return (
     <Container>
-      <Header text="Category" color={colors.white}></Header>
+      <Header text="Category" color={colors.white} />
       <SubContainer>
-        <SearchBar placeholder="Search Category"></SearchBar>
+        <SearchBar placeholder="Search Category" />
         <FlatlistComp
           DATA={categories}
           numColumns={2}
-          renderItem={renderCategories}></FlatlistComp>
-        <Fab></Fab>
+          renderItem={renderCategories}
+        />
+        <Fab />
       </SubContainer>
     </Container>
   );

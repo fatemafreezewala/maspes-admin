@@ -5,14 +5,15 @@ import margins from '../utilities/margins';
 import colors from '../utilities/colors';
 import fontFamily from '../utilities/fontFamily';
 import {SvgXml} from 'react-native-svg';
-const TextInputComp = ({placeholder,type="normal"}) => {
+const TextInputComp = props => {
+  const {placeholder, type = 'normal', onChangeText, ...otherProps} = props;
   const [focus, setFocus] = React.useState(false);
-  const [texttype, setTextType] = React.useState(false)
+  const [texttype, setTextType] = React.useState(false);
   return (
     <TextInput
-    secureTextEntry={texttype}
+      onChangeText={onChangeText}
+      secureTextEntry={texttype}
       outlineStyle={{borderWidth: 1, borderColor: colors.primary}}
-      
       style={[
         styles.input,
         {borderColor: focus ? colors.primary : colors.white},
@@ -23,7 +24,7 @@ const TextInputComp = ({placeholder,type="normal"}) => {
       onBlur={e => {
         setFocus(false);
       }}
-      Type="flat"
+      // Type="flat"
       label={
         <Text
           style={{
@@ -35,9 +36,16 @@ const TextInputComp = ({placeholder,type="normal"}) => {
         </Text>
       }
       underlineStyle={{display: 'none'}}
-      right={type == "password" && <TextInput.Icon onPress={()=>{
-        setTextType(!texttype)
-      }} icon={texttype ? "eye" : "eye-off"} />}
+      right={
+        type == 'password' && (
+          <TextInput.Icon
+            onPress={() => {
+              setTextType(!texttype);
+            }}
+            icon={texttype ? 'eye' : 'eye-off'}
+          />
+        )
+      }
     />
   );
 };

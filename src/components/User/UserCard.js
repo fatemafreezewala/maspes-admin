@@ -6,8 +6,24 @@ import OutlineButton from '../OutlineButton';
 import {SvgXml} from 'react-native-svg';
 import globalStyle from '../../styles/globalStyle';
 import margins from '../../utilities/margins';
+import {imageUrl} from '../../constant/api';
 
 const UserCard = ({item}) => {
+  const userIco = `
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_344_3008)">
+  <rect width="40" height="40" rx="20" fill="white"/>
+  <rect x="12" y="6" width="16" height="16" rx="8" fill=${colors.primary}/>
+  <rect x="-10" y="27" width="60" height="60" rx="30" fill=${colors.primary}/>
+  </g>
+  <rect x="0.3" y="0.3" width="39.4" height="39.4" rx="19.7" stroke="#D0E3DC" stroke-width="0.6"/>
+  <defs>
+  <clipPath id="clip0_344_3008">
+  <rect width="40" height="40" rx="20" fill="white"/>
+  </clipPath>
+  </defs>
+  </svg>
+  `;
   const deleteIcon = `<svg width="25" height="25" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M13 10V16" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M9 10V16" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -39,28 +55,31 @@ const UserCard = ({item}) => {
       ]}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={{flexDirection: 'row', width: '90%'}}>
-          <Image
-            style={{
-              width: 60,
-              height: 60,
-              borderRadius: 60,
-              resizeMode: 'contain',
-            }}
-            source={item.image}></Image>
+          {item.admin_image !== null ? (
+            <Image
+              style={{
+                width: 60,
+                height: 60,
+                borderRadius: 60,
+                resizeMode: 'contain',
+              }}
+              source={{uri: `${imageUrl}/${item.admin_image}`}}
+            />
+          ) : (
+            <SvgXml xml={userIco} />
+          )}
           <View style={{marginLeft: margins.m5}}>
             <TextComp
               type="medium"
               color={colors.black}
               fontSize={14}
-              text={item.name}></TextComp>
-            <OutlineButton
-              width={'80%'}
-              height={30}
-              text="Booking History"></OutlineButton>
+              text={item.admin_name}
+            />
+            <OutlineButton width={'80%'} height={30} text="Booking History" />
           </View>
         </View>
 
-        <SvgXml xml={deleteIcon}></SvgXml>
+        <SvgXml xml={deleteIcon} />
       </View>
       <View
         style={[
@@ -68,20 +87,22 @@ const UserCard = ({item}) => {
           {justifyContent: 'space-between', marginTop: margins.m5},
         ]}>
         <View style={styles.row}>
-          <SvgXml xml={phone}></SvgXml>
+          <SvgXml xml={phone} />
           <TextComp
             fontSize={13}
             color={colors.black}
             type="normal"
-            text="+52 121121454"></TextComp>
+            text={item.admin_phone}
+          />
         </View>
         <View style={styles.row}>
-          <SvgXml xml={email}></SvgXml>
+          <SvgXml xml={email} />
           <TextComp
             fontSize={13}
             color={colors.black}
             type="normal"
-            text="anthon@gmail.com"></TextComp>
+            text={item.admin_email}
+          />
         </View>
       </View>
     </View>

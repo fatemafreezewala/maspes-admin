@@ -4,15 +4,52 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  Alert,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import globalStyle from '../../styles/globalStyle';
 import TextComp from '../TextComp';
 import colors from '../../utilities/colors';
 import margins from '../../utilities/margins';
 import currency from '../../utilities/currency';
+import {api, imageUrl} from '../../constant/api';
+import toast from '../../utilities/toast';
 
-const Product = ({item, onPress}) => {
+const Product = ({item, onPress, fetchProducts}) => {
+  const [loading, setLoading] = useState(false);
+  const deleteAlert = () => {
+    Alert.alert(
+      'Confirmation',
+      'Are you sure you want to delete this product?',
+      [
+        {
+          text: 'Yes',
+          onPress: deleteProduct,
+        },
+        {
+          text: 'Cancel',
+          onPress: () => {},
+        },
+      ],
+    );
+  };
+
+  const deleteProduct = async () => {
+    try {
+      setLoading(true);
+      const res = await api.delete('/product/' + item.prod_id);
+      // console.log(res.data.data);
+      setLoading(false);
+      console.log(res.data);
+      if (res.data.status === 'success') {
+        toast('Product deleted successfully');
+        fetchProducts();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Pressable
       onPress={onPress}
@@ -32,27 +69,38 @@ const Product = ({item, onPress}) => {
           globalStyle.w100,
           {height: 120, borderTopLeftRadius: 10, borderTopRightRadius: 10},
         ]}
-        source={item.image}></Image>
+        source={{uri: `${imageUrl}/${item.prod_name_image}`}}
+      />
       <TextComp
-        style={[{marginTop: margins.m10,marginHorizontal:'5%'}]}
+        style={[{marginTop: margins.m10, marginHorizontal: '5%'}]}
         type="medium"
-        text={item.name}
+        text={item.prod_name_en}
         fontSize={11}
-        color={colors.black}></TextComp>
-      <View style={[styles.row,{justifyContent:'space-between',marginHorizontal:'5%',marginVertical:'5%'}]}>
+        color={colors.black}
+      />
+      <View
+        style={[
+          styles.row,
+          {
+            justifyContent: 'space-between',
+            marginHorizontal: '5%',
+            marginVertical: '5%',
+          },
+        ]}>
         <View style={styles.row}>
-          <TextComp fontSize={12} color={colors.primary} text={currency}></TextComp>
+          <TextComp fontSize={12} color={colors.primary} text={currency} />
           <TextComp
             type="medium"
             fontSize={12}
             color={colors.black}
-            text={'150'}></TextComp>
+            text={item.prod_offer_price}
+          />
         </View>
         <TouchableOpacity>
-          <TextComp fontSize={12} color={colors.primary} text="Edit"></TextComp>
+          <TextComp fontSize={12} color={colors.primary} text="Edit" />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <TextComp fontSize={12} color={colors.primary} text="Delete"></TextComp>
+        <TouchableOpacity onPress={deleteAlert}>
+          <TextComp fontSize={12} color={colors.primary} text="Delete" />
         </TouchableOpacity>
       </View>
     </Pressable>

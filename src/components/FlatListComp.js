@@ -1,24 +1,31 @@
-import {FlatList } from 'react-native'
-import React from 'react'
+import {FlatList} from 'react-native';
+import React from 'react';
 
-const FlatlistComp = ({DATA,renderItem,style,numberOfColumns=false,numColumns}) => {
-  return (
-    numberOfColumns ? <FlatList
-    style={style}
-        showsVerticalScrollIndicator={false}
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      /> : <FlatList
+const FlatlistComp = ({
+  DATA,
+  renderItem,
+  style,
+  numberOfColumns = false,
+  numColumns,
+}) => {
+  return numberOfColumns ? (
+    <FlatList
+      style={style}
+      showsVerticalScrollIndicator={false}
+      data={DATA}
+      renderItem={renderItem}
+      keyExtractor={(item, i) => i.toString()}
+    />
+  ) : (
+    <FlatList
       numColumns={numColumns}
       style={style}
-          showsVerticalScrollIndicator={false}
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-    
-  )
-}
+      showsVerticalScrollIndicator={false}
+      data={DATA}
+      renderItem={renderItem}
+      keyExtractor={(item, i) => i.toString()}
+    />
+  );
+};
 
-export default FlatlistComp
+export default FlatlistComp;

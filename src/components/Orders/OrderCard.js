@@ -7,8 +7,9 @@ import RatingPill from './RatingPill';
 import margins from '../../utilities/margins';
 import fontSize from '../../utilities/fontSize';
 import fontFamily from '../../utilities/fontFamily';
+import currency from '../../utilities/currency';
 
-const OrderCard = ({item,onPress,showUser=true}) => {
+const OrderCard = ({item, onPress, showUser = true, showSubItems = false}) => {
   const userIco = `
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_344_3008)">
@@ -46,42 +47,45 @@ const OrderCard = ({item,onPress,showUser=true}) => {
     `;
   return (
     <Pressable
-    onPress={onPress}
+      onPress={onPress}
       style={{
         borderColor: colors.borderColor,
-        minHeight: 180,
+        // minHeight: 180,
         borderWidth: 1,
         borderRadius: 15,
         padding: 10,
         marginTop: margins.m5,
       }}>
-        {showUser && (<View
-        style={[
-          styles.row,
-          {
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderBottomWidth: 1,
-            borderStyle: 'dashed',
-            borderColor: colors.borderColor,
-          },
-        ]}>
-        <View style={styles.row}>
-          <SvgXml xml={userIco}></SvgXml>
-          <View style={{marginLeft: margins.m5}}>
-            <View style={styles.row}>
-              <TextComp
-                color={colors.black}
-                type="medium"
-                text={item.name}></TextComp>
-              <RatingPill star={item.star}></RatingPill>
+      {showUser && (
+        <View
+          style={[
+            styles.row,
+            {
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderBottomWidth: 1,
+              borderStyle: 'dashed',
+              borderColor: colors.borderColor,
+            },
+          ]}>
+          <View style={styles.row}>
+            <SvgXml xml={userIco} />
+            <View style={{marginLeft: margins.m5}}>
+              <View style={styles.row}>
+                <TextComp
+                  color={colors.black}
+                  type="medium"
+                  text={item.user_name}
+                />
+                {item.o_status === '2' && <RatingPill star={item.o_ratings} />}
+              </View>
+              <TextComp color={colors.black} text={item.user_phone} />
             </View>
-            <TextComp color={colors.black} text={item.phone}></TextComp>
           </View>
+          <SvgXml xml={arrowIco} />
         </View>
-        <SvgXml xml={arrowIco}></SvgXml>
-      </View>)}
-      
+      )}
+
       <View
         style={{
           borderBottomWidth: 1,
@@ -89,47 +93,100 @@ const OrderCard = ({item,onPress,showUser=true}) => {
           borderColor: colors.borderColor,
           marginTop: margins.m5,
         }}>
-        {item.dishes &&
-          item.dishes.map(res => (
-            <View
-              style={[
-                styles.row,
-                {
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                },
-              ]}>
-             <View style={[styles.row,{alignItems:'center'}]}>
-             {res.type == 'veg' ? (
-                <SvgXml xml={vegIcon}></SvgXml>
-              ) : (
-                <SvgXml xml={nonvegIcon}></SvgXml>
-              )}
-              <TextComp
-                type="medium"
-                color={colors.primary}
-                style={{marginHorizontal:4}}
-                text={res.qty}></TextComp>
-              <TextComp
-                fontSize={13}
-                color={colors.black}
-                text={res.name}></TextComp>
-             </View>
-              <TextComp
-                type="medium"
-                color={colors.primary}
-                text={res.price}></TextComp>
+        {item.items &&
+          item.items.map((res, i) => (
+            <View key={i}>
+              <View
+                style={[
+                  styles.row,
+                  {
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  },
+                ]}>
+                <View style={[styles.row, {alignItems: 'center'}]}>
+                  {res.prod_isveg === 1 ? (
+                    <SvgXml xml={vegIcon} />
+                  ) : (
+                    <SvgXml xml={nonvegIcon} />
+                  )}
+                  <TextComp
+                    type="medium"
+                    color={colors.primary}
+                    style={{marginHorizontal: 4}}
+                    text={res.item_qty}
+                  />
+                  <TextComp
+                    fontSize={13}
+                    color={colors.black}
+                    text={res.prod_name_en}
+                  />
+                </View>
+                <TextComp
+                  type="medium"
+                  color={colors.primary}
+                  text={`${currency}${res.item_price}`}
+                />
+              </View>
+              <View>
+                {res?.subitems?.length > 0 && (
+                  <>
+                    {res?.subitems?.map(subItem => {
+                      return (
+                        <View style={{marginLeft: 20, flexDirection: 'row'}}>
+                          <View
+                            style={{
+                              height: 10,
+                              width: 10,
+                              borderLeftWidth: 1,
+                              borderBottomWidth: 1,
+                              marginRight: 10,
+                            }}
+                          />
+                          <TextComp
+                            color={colors.black}
+                            text={`${subItem?.ps_name_en} - `}
+                          />
+                          <TextComp
+                            type="medium"
+                            color={colors.primary}
+                            text={`${currency}${subItem?.ps_price}`}
+                          />
+                        </View>
+                      );
+                    })}
+                  </>
+                )}
+              </View>
             </View>
           ))}
       </View>
-      <View style={[styles.row,{justifyContent:'space-between',marginTop:margins.m5}]}>
-        <Text style={{fontSize:8.5,color:colors.black,fontFamily:fontFamily.medium}}>
-            <Text style={{color:colors.primary}}>Order :</Text>
-            <Text >{item.orderTime}</Text>
+      <View
+        style={[
+          styles.row,
+          {justifyContent: 'space-between', marginTop: margins.m5},
+        ]}>
+        <Text
+          style={{
+            fontSize: 10,
+            color: colors.black,
+            fontFamily: fontFamily.medium,
+          }}>
+          <Text style={{color: colors.primary}}>Order: </Text>
+          <Text>
+            {item.o_placed_date} {item.o_placed_time}
+          </Text>
         </Text>
-        <Text style={{fontSize:8.5,color:colors.black,fontFamily:fontFamily.medium}}>
-            <Text style={{color:colors.primary}}>Deliver :</Text>
-            <Text>{item.deliverTime}</Text>
+        <Text
+          style={{
+            fontSize: 10,
+            color: colors.black,
+            fontFamily: fontFamily.medium,
+          }}>
+          <Text style={{color: colors.primary}}>Deliver :</Text>
+          <Text>
+            {item.o_delivered_date} {item.o_delivered_time}
+          </Text>
         </Text>
       </View>
     </Pressable>

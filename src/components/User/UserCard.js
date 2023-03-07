@@ -1,14 +1,23 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import colors from '../../utilities/colors';
 import TextComp from '../TextComp';
 import OutlineButton from '../OutlineButton';
 import {SvgXml} from 'react-native-svg';
 import globalStyle from '../../styles/globalStyle';
 import margins from '../../utilities/margins';
-import {imageUrl} from '../../constant/api';
+import {api, imageUrl} from '../../constant/api';
+import toast from '../../utilities/toast';
 
-const UserCard = ({item}) => {
+const UserCard = ({item, fetchUsers}) => {
+  const [loading, setLoading] = useState(false);
   const userIco = `
   <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0_344_3008)">
@@ -42,6 +51,32 @@ const UserCard = ({item}) => {
     <path d="M3 5L12 14L21 5" stroke=${colors.primary} stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     `;
+
+  const deleteUser = async () => {
+    try {
+      setLoading(true);
+      const res = await api.delete('/admin/' + item.admin_id);
+      setLoading(false);
+      if (res.data.status === 'success') {
+        toast('Deleted Successfully');
+        fetchUsers();
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const deleteAlert = () => {
+    Alert.alert('Confirmation', 'Do you want to delete this user?', [
+      {
+        text: 'Yes',
+        onPress: deleteUser,
+      },
+      {text: 'Cancel', onPress: () => {}},
+    ]);
+  };
+
   return (
     <View
       style={[
@@ -78,8 +113,9 @@ const UserCard = ({item}) => {
             <OutlineButton width={'80%'} height={30} text="Booking History" />
           </View>
         </View>
-
-        <SvgXml xml={deleteIcon} />
+        <TouchableOpacity onPress={deleteAlert}>
+          <SvgXml xml={deleteIcon} />
+        </TouchableOpacity>
       </View>
       <View
         style={[

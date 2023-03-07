@@ -32,10 +32,14 @@ const Index = () => {
         }
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
-  const renderUsers = ({item}) => <UserCard item={item} />;
+
+  const renderUsers = ({item}) => (
+    <UserCard item={item} fetchUsers={fetchUsers} />
+  );
   return (
     <Container>
       <Header text="Managers/Rps" color={colors.white} />

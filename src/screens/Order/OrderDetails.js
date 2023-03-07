@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from '../../components/Container';
 import SubContainer from '../../components/SubContainer';
 import {View, Image, ScrollView} from 'react-native';
@@ -11,8 +11,31 @@ import TextComp from '../../components/TextComp';
 import {SvgXml} from 'react-native-svg';
 import globalStyle from '../../styles/globalStyle';
 import margins from '../../utilities/margins';
+import {api} from '../../constant/api';
 
-const OrderDetails = () => {
+const OrderDetails = ({route}) => {
+  const {data} = route.params;
+
+  const [details, setDetails] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchCompletedOrders();
+  }, []);
+
+  const fetchCompletedOrders = async () => {
+    try {
+      setLoading(true);
+      const res = await api.get('/orders/' + data.order_id);
+      setLoading(false);
+      if (res.data.status === 'success') {
+        setDetails(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const cash = `
   <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <mask id="path-1-inside-1_360_3573" fill="white">
@@ -35,7 +58,7 @@ const OrderDetails = () => {
   `;
   return (
     <Container>
-      <Header text="Order Details" color={colors.white}></Header>
+      <Header text="Order Details" color={colors.white} />
       <SubContainer>
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* User Info */}
@@ -44,16 +67,19 @@ const OrderDetails = () => {
             type="medium"
             fontSize={16}
             style={{marginVertical: margins.m5}}
-            color={colors.black}></TextComp>
+            color={colors.black}
+          />
           <View style={globalStyle.row}>
             <Image
-              source={require('../../assets/images/demo/user/User-40.jpg')}></Image>
+              source={require('../../assets/images/demo/user/User-40.jpg')}
+            />
             <View style={{marginLeft: margins.m5}}>
               <TextComp
                 type="medium"
                 color={colors.black}
-                text="William John Watson"></TextComp>
-              <TextComp color={colors.black} text="+52 126321533"></TextComp>
+                text={data.user_name}
+              />
+              <TextComp color={colors.black} text={data.user_phone} />
             </View>
           </View>
           <View
@@ -62,13 +88,14 @@ const OrderDetails = () => {
               globalStyle.row,
               {padding: margins.m5, marginTop: margins.m5},
             ]}>
-            <SvgXml xml={location}></SvgXml>
+            <SvgXml xml={location} />
             <View style={{marginLeft: margins.m5}}>
               <TextComp
                 type="medium"
                 color={colors.black}
-                text="William John Watson"></TextComp>
-              <TextComp color={colors.black} text="+52 126321533"></TextComp>
+                text={data.user_name}
+              />
+              <TextComp color={colors.black} text={data.user_phone} />
             </View>
           </View>
           {/* Food Items */}
@@ -77,27 +104,40 @@ const OrderDetails = () => {
             type="medium"
             fontSize={16}
             style={{marginTop: margins.m5}}
-            color={colors.black}></TextComp>
-          <OrderCard showUser={false} item={orders[0]}></OrderCard>
+            color={colors.black}
+          />
+          <OrderCard showUser={false} item={details} showSubItems={true} />
           {/* Payment */}
           <TextComp
             text="Payment Methods"
             type="medium"
             fontSize={16}
             style={{marginVertical: margins.m5}}
-            color={colors.black}></TextComp>
+            color={colors.black}
+          />
           <View
             style={[
               globalStyle.boxborder,
               globalStyle.rowSpace,
               {padding: margins.m5},
             ]}>
-            <TextComp
-              text="Cash on delivery"
-              type="medium"
-              fontSize={16}
-              color={colors.black}></TextComp>
-            <SvgXml xml={cash}></SvgXml>
+            {data.o_payment_method === '1' && (
+              <TextComp
+                text="Cash on delivery"
+                type="medium"
+                fontSize={16}
+                color={colors.black}
+              />
+            )}
+            {data.o_payment_method === '2' && (
+              <TextComp
+                text="Online"
+                type="medium"
+                fontSize={16}
+                color={colors.black}
+              />
+            )}
+            <SvgXml xml={cash} />
           </View>
         </ScrollView>
       </SubContainer>

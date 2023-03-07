@@ -1,19 +1,47 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from '../../components/Container';
 import SubContainer from '../../components/SubContainer';
 
 //demo Data
-import orders from '../../data/orders';
+import orderss from '../../data/orders';
 import FlatlistComp from '../../components/FlatListComp';
 import OrderCard from '../../components/Orders/OrderCard';
 import {useNavigation} from '@react-navigation/native';
+import {api} from '../../constant/api';
 
 const Index = () => {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    fetchPendingOrders();
+  }, []);
+
+  const fetchPendingOrders = async () => {
+    try {
+      setLoading(true);
+      const res = await api.post('/orders', {
+        status: '0',
+      });
+      setLoading(false);
+      if (res.data.status === 'success') {
+        setOrders(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const renderTables = ({item}) => (
     <OrderCard
-      onPress={() => navigation.navigate('OrderDetails')}
-      item={item}></OrderCard>
+      onPress={() =>
+        navigation.navigate('OrderDetails', {
+          data: item,
+        })
+      }
+      item={item}
+    />
   );
 
   return (
@@ -22,7 +50,8 @@ const Index = () => {
         <FlatlistComp
           DATA={orders}
           numberOfColumns={false}
-          renderItem={renderTables}></FlatlistComp>
+          renderItem={renderTables}
+        />
       </SubContainer>
     </Container>
   );

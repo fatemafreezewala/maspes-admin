@@ -1,14 +1,55 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, {useState, useEffect} from 'react';
+import Container from '../../components/Container';
+import SubContainer from '../../components/SubContainer';
+import SearchBar from '../../components/SearchBar';
+
+//demo Data
+// import tables from '../../data/tables';
+import FlatlistComp from '../../components/FlatListComp';
+import Fab from '../../components/Fab';
+import TableCard from '../../components/Table/TableCard';
+import {api} from '../../constant/api';
 
 const Completed = () => {
+  const [loading, setLoading] = useState(false);
+  const [tables, setTables] = useState([]);
+
+  useEffect(() => {
+    fetchCompletedTables();
+  }, []);
+
+  const fetchCompletedTables = async () => {
+    try {
+      setLoading(true);
+      const res = await api.post('/tables', {
+        table_restro_id: '1',
+        table_status: '1',
+        table_date: '06-03-2023',
+      });
+      setLoading(false);
+      if (res.data.status === 'success') {
+        setTables(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const renderTables = ({item}) => <TableCard item={item} />;
+
   return (
-    <View>
-      <Text>Completed</Text>
-    </View>
-  )
-}
+    <Container>
+      <SubContainer>
+        <SearchBar placeholder="Search.." />
+        <FlatlistComp
+          DATA={tables}
+          numberOfColumns={false}
+          renderItem={renderTables}
+        />
+        <Fab icon="qrcode" />
+      </SubContainer>
+    </Container>
+  );
+};
 
-export default Completed
-
-const styles = StyleSheet.create({})
+export default Completed;

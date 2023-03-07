@@ -1,4 +1,4 @@
-import {StyleSheet,View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import colors from '../../utilities/colors';
 import {SvgXml} from 'react-native-svg';
@@ -55,13 +55,15 @@ const TableCard = ({item}) => {
             fontSize={20}
             color={colors.black}
             type="bold"
-            text={item.name}></TextComp>
+            text={item.table_no_of_guest}
+          />
           <TextComp
             fontSize={14}
             color={colors.black}
             style={{marginLeft: margins.m5}}
             type="normal"
-            text={'No. of Guest'}></TextComp>
+            text={'No. of Guest'}
+          />
         </View>
         <View
           style={[
@@ -69,26 +71,28 @@ const TableCard = ({item}) => {
             {justifyContent: 'space-between', marginTop: margins.m5},
           ]}>
           <View style={styles.row}>
-            <SvgXml xml={calander}></SvgXml>
+            <SvgXml xml={calander} />
             <TextComp
               fontSize={13}
               color={colors.black}
               type="normal"
-              text="23 Mar 2022 "></TextComp>
+              text={item.table_date}
+            />
           </View>
           <View style={[styles.row, {marginLeft: margins.m10}]}>
-            <SvgXml xml={clock}></SvgXml>
+            <SvgXml xml={clock} />
             <TextComp
               fontSize={13}
               color={colors.black}
               type="normal"
-              text="9:40 PM"></TextComp>
+              text={item.table_time}
+            />
           </View>
         </View>
       </View>
       <View>
-        <SvgXml xml={qr}></SvgXml>
-        <PdfMakeComp></PdfMakeComp>
+        <SvgXml xml={qr} />
+        <PdfMakeComp />
       </View>
     </View>
   );

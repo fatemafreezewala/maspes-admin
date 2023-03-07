@@ -1,55 +1,56 @@
 import React, {useState, useEffect} from 'react';
 import Container from '../../components/Container';
 import SubContainer from '../../components/SubContainer';
-import SearchBar from '../../components/SearchBar';
 
 //demo Data
-// import tables from '../../data/tables';
+// import orders from '../../data/orders';
 import FlatlistComp from '../../components/FlatListComp';
-import Fab from '../../components/Fab';
-import TableCard from '../../components/Table/TableCard';
+import OrderCard from '../../components/Orders/OrderCard';
+import {useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
 
-const Index = () => {
+const Accepted = () => {
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const [tables, setTables] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetchPendingTables();
+    fetchAcceptedOrders();
   }, []);
 
-  const fetchPendingTables = async () => {
+  const fetchAcceptedOrders = async () => {
     try {
       setLoading(true);
-      const res = await api.post('/tables', {
-        table_restro_id: '1',
-        table_status: '0',
-        table_date: '06-03-2023',
+      const res = await api.post('/orders', {
+        status: '1',
       });
       setLoading(false);
       if (res.data.status === 'success') {
-        setTables(res.data.data);
+        setOrders(res.data.data);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const renderTables = ({item}) => <TableCard item={item} />;
+  const renderTables = ({item}) => (
+    <OrderCard
+      onPress={() => navigation.navigate('OrderDetails')}
+      item={item}
+    />
+  );
 
   return (
     <Container>
       <SubContainer>
-        <SearchBar placeholder="Search.." />
         <FlatlistComp
-          DATA={tables}
+          DATA={orders}
           numberOfColumns={false}
           renderItem={renderTables}
         />
-        <Fab icon="qrcode" />
       </SubContainer>
     </Container>
   );
 };
 
-export default Index;
+export default Accepted;

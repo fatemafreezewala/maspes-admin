@@ -37,14 +37,18 @@ const PdfMakeComp = () => {
       onPress={() => {
         generatePDF();
       }}
-      style={[{backgroundColor: colors.primary,padding:3,borderRadius:5}, globalStyle.rowCenter]}>
-      <FA name="file-pdf-o" size={15} color={colors.white}></FA>
+      style={[
+        {backgroundColor: colors.primary, padding: 3, borderRadius: 5},
+        globalStyle.rowCenter,
+      ]}>
+      <FA name="file-pdf-o" size={15} color={colors.white} />
       <TextComp
         fontSize={10}
         type="normal"
-        style={{marginLeft:margins.m5}}
+        style={{marginLeft: margins.m5}}
         color={colors.white}
-        text="Share"></TextComp>
+        text="Share"
+      />
     </TouchableOpacity>
   );
 };

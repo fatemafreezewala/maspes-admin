@@ -1,2 +1,2 @@
-const currency = '$'
-export default currency
+const currency = '$';
+export default currency;

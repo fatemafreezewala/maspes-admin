@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Header from '../../components/Header';
 import colors from '../../utilities/colors';
 import Container from '../../components/Container';
@@ -11,15 +11,18 @@ import FlatlistComp from '../../components/FlatListComp';
 import Product from '../../components/Home/Product';
 import Fab from '../../components/Fab';
 import {api} from '../../constant/api';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Index = ({navigation, route}) => {
   const {category} = route.params;
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchProducts();
+    }, []),
+  );
 
   const fetchProducts = async () => {
     console.log('fetchProducts called');
@@ -42,8 +45,9 @@ const Index = ({navigation, route}) => {
   const renderProduct = ({item}) => (
     <Product
       fetchProducts={fetchProducts}
-      onPress={() => navigation.navigate('Tables')}
+      onPress={() => {}}
       item={item}
+      categoryId={category.category_id}
     />
   );
 
@@ -57,7 +61,14 @@ const Index = ({navigation, route}) => {
           numColumns={2}
           renderItem={renderProduct}
         />
-        <Fab />
+        <Fab
+          onPress={() =>
+            navigation.navigate('AddProduct', {
+              isEdit: false,
+              categoryId: category.category_id,
+            })
+          }
+        />
       </SubContainer>
     </Container>
   );

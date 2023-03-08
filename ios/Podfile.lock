@@ -390,6 +390,15 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
+  - RNImageCropPicker (0.39.0):
+    - React-Core
+    - React-RCTImage
+    - RNImageCropPicker/QBImagePickerController (= 0.39.0)
+    - TOCropViewController
+  - RNImageCropPicker/QBImagePickerController (0.39.0):
+    - React-Core
+    - React-RCTImage
+    - TOCropViewController
   - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
@@ -406,6 +415,7 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
   - Toast (4.0.0)
+  - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -453,6 +463,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
+  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -470,6 +481,7 @@ SPEC REPOS:
     - SDWebImage
     - SDWebImageWebPCoder
     - Toast
+    - TOCropViewController
 
 EXTERNAL SOURCES:
   boost:
@@ -556,6 +568,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
+  RNImageCropPicker:
+    :path: "../node_modules/react-native-image-crop-picker"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNShare:
@@ -616,6 +630,7 @@ SPEC CHECKSUMS:
   ReactCommon: 6f65ea5b7d84deb9e386f670dd11ce499ded7b40
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
+  RNImageCropPicker: 14fe1c29298fb4018f3186f455c475ab107da332
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNShare: b089c33619bbfb0a32bc4069c858b9274e694187
   RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
@@ -623,6 +638,7 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 5ed1699acbba8863755998a4245daa200ff3817b
 
 PODFILE CHECKSUM: 47569b9364ced95f045522fdc05c8fceb00ede20

@@ -15,6 +15,7 @@ const FlatlistComp = ({
       data={DATA}
       renderItem={renderItem}
       keyExtractor={(item, i) => i.toString()}
+      contentContainerStyle={{paddingBottom: 100}}
     />
   ) : (
     <FlatList
@@ -24,6 +25,7 @@ const FlatlistComp = ({
       data={DATA}
       renderItem={renderItem}
       keyExtractor={(item, i) => i.toString()}
+      contentContainerStyle={{paddingBottom: 100}}
     />
   );
 };

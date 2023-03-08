@@ -27,6 +27,21 @@ const Index = ({navigation}) => {
           await AsyncStorage.removeItem('USER_TOKEN');
           clear();
           signOut();
+        } else if (item.name === 'About us') {
+          navigation.navigate('Editor', {
+            title: 'About Us',
+            type: 1,
+          });
+        } else if (item.name === 'Privacy') {
+          navigation.navigate('Editor', {
+            title: 'Privacy Policy',
+            type: 2,
+          });
+        } else if (item.name === 'Terms') {
+          navigation.navigate('Editor', {
+            title: 'Terms and Conditions',
+            type: 3,
+          });
         } else {
           console.log('tables');
           navigation.navigate('Tables');

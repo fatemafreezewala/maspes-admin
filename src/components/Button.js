@@ -1,4 +1,10 @@
-import {Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import TextComp from './TextComp';
 import colors from '../utilities/colors';
@@ -9,29 +15,29 @@ const Button = ({
   text = 'SAVE',
   width = '100%',
   height = 50,
-  onPress
+  onPress,
 }) => {
   return (
     <Pressable
-    onPress={onPress}
+      onPress={onPress}
       style={{
         alignItems: 'center',
         width: width,
         height: height,
         backgroundColor: loading ? colors.grey : colors.primary,
-        borderRadius:10,
-        justifyContent:'center'
+        borderRadius: 10,
+        justifyContent: 'center',
       }}
       disabled={loading}>
       {loading ? (
         <AnimatedLottieView
-        style={{width:50,height:40}}
+          style={{width: 50, height: 40}}
           source={require('../utilities/lottie/loader.json')}
           autoPlay
           loop
         />
       ) : (
-        <TextComp type='medium' color={colors.white} text={text}></TextComp>
+        <TextComp type="medium" color={colors.white} text={text}></TextComp>
       )}
     </Pressable>
   );

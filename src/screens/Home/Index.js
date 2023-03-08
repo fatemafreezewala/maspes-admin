@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Header from '../../components/Header';
 import colors from '../../utilities/colors';
 import Container from '../../components/Container';
@@ -11,14 +11,17 @@ import FlatlistComp from '../../components/FlatListComp';
 import Categories from '../../components/Home/Categories';
 import Fab from '../../components/Fab';
 import {api} from '../../constant/api';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Index = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchCategories();
+    }, []),
+  );
 
   const fetchCategories = async () => {
     try {
@@ -58,7 +61,13 @@ const Index = ({navigation}) => {
           numColumns={2}
           renderItem={renderCategories}
         />
-        <Fab />
+        <Fab
+          onPress={() =>
+            navigation.navigate('AddCategory', {
+              isEdit: false,
+            })
+          }
+        />
       </SubContainer>
     </Container>
   );

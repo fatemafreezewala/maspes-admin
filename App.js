@@ -83,7 +83,7 @@ const App = () => {
     <SafeAreaView style={{flex: 1}}>
       <StatusBar animated={true} backgroundColor={colors.primary} />
       <PaperProvider theme={theme}>
-        <AppNavigator></AppNavigator>
+        <AppNavigator />
       </PaperProvider>
     </SafeAreaView>
   );

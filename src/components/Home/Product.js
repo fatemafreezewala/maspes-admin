@@ -14,9 +14,13 @@ import margins from '../../utilities/margins';
 import currency from '../../utilities/currency';
 import {api, imageUrl} from '../../constant/api';
 import toast from '../../utilities/toast';
+import {useNavigation} from '@react-navigation/native';
 
-const Product = ({item, onPress, fetchProducts}) => {
+const Product = ({item, onPress, fetchProducts, categoryId}) => {
   const [loading, setLoading] = useState(false);
+
+  const navigation = useNavigation();
+
   const deleteAlert = () => {
     Alert.alert(
       'Confirmation',
@@ -96,7 +100,14 @@ const Product = ({item, onPress, fetchProducts}) => {
             text={item.prod_offer_price}
           />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('AddProduct', {
+              isEdit: true,
+              data: item,
+              categoryId: categoryId,
+            });
+          }}>
           <TextComp fontSize={12} color={colors.primary} text="Edit" />
         </TouchableOpacity>
         <TouchableOpacity onPress={deleteAlert}>

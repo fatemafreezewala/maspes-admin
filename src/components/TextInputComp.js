@@ -6,7 +6,16 @@ import colors from '../utilities/colors';
 import fontFamily from '../utilities/fontFamily';
 import {SvgXml} from 'react-native-svg';
 const TextInputComp = props => {
-  const {placeholder, type = 'normal', onChangeText, ...otherProps} = props;
+  const {
+    placeholder,
+    type = 'normal',
+    onChangeText,
+    style,
+    value = '',
+    multiline = false,
+    keyboardType = 'default',
+    ...otherProps
+  } = props;
   const [focus, setFocus] = React.useState(false);
   const [texttype, setTextType] = React.useState(false);
   return (
@@ -14,9 +23,14 @@ const TextInputComp = props => {
       onChangeText={onChangeText}
       secureTextEntry={texttype}
       outlineStyle={{borderWidth: 1, borderColor: colors.primary}}
+      keyboardType={keyboardType}
+      textAlignVertical="top"
+      multiline={multiline}
+      value={value}
       style={[
         styles.input,
         {borderColor: focus ? colors.primary : colors.white},
+        style,
       ]}
       onFocus={e => {
         setFocus(true);

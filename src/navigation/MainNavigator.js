@@ -6,6 +6,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import Home from '../screens/Home/Index';
 import AuthContext, {defaultState, reducer, restoreToken} from './Auth';
 import Tab from './Tab';
+import Editor from '../screens/Editor';
+import AddProduct from '../screens/AddProduct';
+import AddCategory from '../screens/AddCategory';
 
 const Stack = createNativeStackNavigator();
 
@@ -59,6 +62,21 @@ const App = () => {
                   options={screenOptions}
                   name="Tabnavigation"
                   component={Tab}
+                />
+                <Stack.Screen
+                  options={screenOptions}
+                  name="Editor"
+                  component={Editor}
+                />
+                <Stack.Screen
+                  options={screenOptions}
+                  name="AddProduct"
+                  component={AddProduct}
+                />
+                <Stack.Screen
+                  options={screenOptions}
+                  name="AddCategory"
+                  component={AddCategory}
                 />
               </>
             )}

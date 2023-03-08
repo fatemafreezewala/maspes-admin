@@ -6,9 +6,13 @@ import colors from '../../utilities/colors';
 import margins from '../../utilities/margins';
 import {api, imageUrl} from '../../constant/api';
 import toast from '../../utilities/toast';
+import {useNavigation} from '@react-navigation/native';
 
 const Categories = ({item, onPress, fetchCategories}) => {
   const [loading, setLoading] = useState(false);
+
+  const navigation = useNavigation();
+
   const deleteAlert = () => {
     Alert.alert(
       'Confirmation',
@@ -74,6 +78,12 @@ const Categories = ({item, onPress, fetchCategories}) => {
       />
       <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
         <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('AddCategory', {
+              isEdit: true,
+              data: item,
+            });
+          }}
           style={{
             padding: 5,
             paddingHorizontal: 15,

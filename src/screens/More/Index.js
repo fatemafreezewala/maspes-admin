@@ -44,6 +44,8 @@ const Index = ({navigation}) => {
           });
         } else if (item.name === 'Notifications') {
           navigation.navigate('Notifications');
+        } else if (item.name === 'Restaurant detail') {
+          navigation.navigate('ResDetails');
         } else {
           // console.log('tables');
           // navigation.navigate('Tables');

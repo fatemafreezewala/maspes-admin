@@ -18,6 +18,7 @@ const Index = ({navigation, route}) => {
   const {category} = route.params;
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const [term, setTerm] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -56,10 +57,12 @@ const Index = ({navigation, route}) => {
     <Container>
       <Header text="Product" color={colors.white} showBack />
       <SubContainer>
-        <SearchBar placeholder="Search products" />
+        <SearchBar placeholder="Search products" onChangeText={setTerm} />
         {loading && <CategoryLoading />}
         <FlatlistComp
-          DATA={products}
+          DATA={products.filter(item =>
+            item.prod_name_en.toLowerCase()?.includes(term.toLowerCase()),
+          )}
           numColumns={2}
           renderItem={renderProduct}
         />

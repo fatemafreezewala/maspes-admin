@@ -123,7 +123,7 @@ const AddProduct = ({route, navigation}) => {
             name: image.filename,
           });
         } else {
-          fd.append('prod_name_image', image.path);
+          fd.append('prod_name_image', data?.prod_name_image);
         }
       } else {
         fd.append('prod_name_image', {

@@ -14,9 +14,10 @@ import {api} from '../../constant/api';
 import {useFocusEffect} from '@react-navigation/native';
 import CategoryLoading from '../../components/Placeholders/CategoryLoading';
 
-const Index = ({navigation}) => {
+const Index = ({navigation, onChangeText}) => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [term, setTerm] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -56,11 +57,13 @@ const Index = ({navigation}) => {
     <Container>
       <Header text="Category" color={colors.white} />
       <SubContainer>
-        <SearchBar placeholder="Search Category" />
+        <SearchBar placeholder="Search Category" onChangeText={setTerm} />
         {loading && <CategoryLoading />}
 
         <FlatlistComp
-          DATA={categories}
+          DATA={categories.filter(item =>
+            item.category_name_en.toLowerCase()?.includes(term.toLowerCase()),
+          )}
           numColumns={2}
           renderItem={renderCategories}
         />

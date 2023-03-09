@@ -5,7 +5,7 @@ import colors from '../utilities/colors';
 import {SvgXml} from 'react-native-svg';
 import fontFamily from '../utilities/fontFamily';
 
-const SearchBar = ({placeholder}) => {
+const SearchBar = ({placeholder, onChangeText}) => {
   const xml = `<svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4 8H13" stroke=${colors.primary} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M17 8L20 8" stroke=${colors.primary} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -42,17 +42,19 @@ const SearchBar = ({placeholder}) => {
           paddingHorizontal: 10,
         },
       ]}>
-      <SvgXml xml={search}></SvgXml>
+      <SvgXml xml={search} />
       <TextInput
         style={{
           fontFamily: fontFamily.regular,
           height: 50,
           width: '80%',
           fontSize: 13,
-          color:colors.primary
+          color: colors.primary,
         }}
-        placeholder={placeholder}></TextInput>
-      <SvgXml xml={xml}></SvgXml>
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+      />
+      <SvgXml xml={xml} />
     </View>
   );
 };

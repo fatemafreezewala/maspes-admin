@@ -17,6 +17,7 @@ import OrderLoading from '../../components/Placeholders/OrderLoading';
 const Index = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
+  const [term, setTerm] = useState('');
 
   useEffect(() => {
     fetchUsers();
@@ -45,10 +46,12 @@ const Index = () => {
     <Container>
       <Header text="Managers/Rps" color={colors.white} />
       <SubContainer>
-        <SearchBar placeholder={'Search Users'} />
+        <SearchBar placeholder={'Search Users'} onChangeText={setTerm} />
         {loading && <OrderLoading />}
         <FlatlistComp
-          DATA={users}
+          DATA={users.filter(item =>
+            item.admin_name.toLowerCase()?.includes(term.toLowerCase()),
+          )}
           numberOfColumns={false}
           renderItem={renderUsers}
         />

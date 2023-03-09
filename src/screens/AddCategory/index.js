@@ -97,7 +97,7 @@ const AddCategory = ({route, navigation}) => {
             name: image.filename,
           });
         } else {
-          fd.append('category_image', image.path);
+          fd.append('category_image', data?.category_image);
         }
       } else {
         fd.append('category_image', {
@@ -156,7 +156,6 @@ const AddCategory = ({route, navigation}) => {
               <TextComp
                 text={image === null ? 'Add Image' : 'Change Image'}
                 type="medium"
-                co
               />
             </TouchableOpacity>
 

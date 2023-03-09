@@ -10,6 +10,7 @@ import Editor from '../screens/Editor';
 import AddProduct from '../screens/AddProduct';
 import AddCategory from '../screens/AddCategory';
 import Notifications from '../screens/More/Notifications';
+import ResDetails from '../screens/More/ResDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -83,6 +84,11 @@ const App = () => {
                   options={screenOptions}
                   name="Notifications"
                   component={Notifications}
+                />
+                <Stack.Screen
+                  options={screenOptions}
+                  name="ResDetails"
+                  component={ResDetails}
                 />
               </>
             )}

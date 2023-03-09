@@ -12,6 +12,7 @@ import FlatlistComp from '../../components/FlatListComp';
 import UserCard from '../../components/User/UserCard';
 import Fab from '../../components/Fab';
 import {api} from '../../constant/api';
+import OrderLoading from '../../components/Placeholders/OrderLoading';
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -45,6 +46,7 @@ const Index = () => {
       <Header text="Managers/Rps" color={colors.white} />
       <SubContainer>
         <SearchBar placeholder={'Search Users'} />
+        {loading && <OrderLoading />}
         <FlatlistComp
           DATA={users}
           numberOfColumns={false}

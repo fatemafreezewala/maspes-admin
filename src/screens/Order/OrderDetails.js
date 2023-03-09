@@ -58,7 +58,7 @@ const OrderDetails = ({route}) => {
   `;
   return (
     <Container>
-      <Header text="Order Details" color={colors.white} />
+      <Header text="Order Details" color={colors.white} showBack />
       <SubContainer>
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* User Info */}

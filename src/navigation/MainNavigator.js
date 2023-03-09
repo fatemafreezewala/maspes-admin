@@ -9,6 +9,7 @@ import Tab from './Tab';
 import Editor from '../screens/Editor';
 import AddProduct from '../screens/AddProduct';
 import AddCategory from '../screens/AddCategory';
+import Notifications from '../screens/More/Notifications';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,6 +78,11 @@ const App = () => {
                   options={screenOptions}
                   name="AddCategory"
                   component={AddCategory}
+                />
+                <Stack.Screen
+                  options={screenOptions}
+                  name="Notifications"
+                  component={Notifications}
                 />
               </>
             )}

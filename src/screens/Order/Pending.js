@@ -8,6 +8,7 @@ import FlatlistComp from '../../components/FlatListComp';
 import OrderCard from '../../components/Orders/OrderCard';
 import {useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
+import OrderLoading from '../../components/Placeholders/OrderLoading';
 
 const Index = () => {
   const navigation = useNavigation();
@@ -29,6 +30,7 @@ const Index = () => {
         setOrders(res.data.data);
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -47,6 +49,7 @@ const Index = () => {
   return (
     <Container>
       <SubContainer>
+        {loading && <OrderLoading />}
         <FlatlistComp
           DATA={orders}
           numberOfColumns={false}

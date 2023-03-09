@@ -8,6 +8,7 @@ import FlatlistComp from '../../components/FlatListComp';
 import OrderCard from '../../components/Orders/OrderCard';
 import {useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
+import OrderLoading from '../../components/Placeholders/OrderLoading';
 
 const Accepted = () => {
   const navigation = useNavigation();
@@ -43,6 +44,7 @@ const Accepted = () => {
   return (
     <Container>
       <SubContainer>
+        {loading && <OrderLoading />}
         <FlatlistComp
           DATA={orders}
           numberOfColumns={false}

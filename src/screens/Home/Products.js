@@ -12,6 +12,7 @@ import Product from '../../components/Home/Product';
 import Fab from '../../components/Fab';
 import {api} from '../../constant/api';
 import {useFocusEffect} from '@react-navigation/native';
+import CategoryLoading from '../../components/Placeholders/CategoryLoading';
 
 const Index = ({navigation, route}) => {
   const {category} = route.params;
@@ -53,9 +54,10 @@ const Index = ({navigation, route}) => {
 
   return (
     <Container>
-      <Header text="Product" color={colors.white} />
+      <Header text="Product" color={colors.white} showBack />
       <SubContainer>
         <SearchBar placeholder="Search products" />
+        {loading && <CategoryLoading />}
         <FlatlistComp
           DATA={products}
           numColumns={2}

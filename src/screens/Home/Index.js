@@ -12,6 +12,7 @@ import Categories from '../../components/Home/Categories';
 import Fab from '../../components/Fab';
 import {api} from '../../constant/api';
 import {useFocusEffect} from '@react-navigation/native';
+import CategoryLoading from '../../components/Placeholders/CategoryLoading';
 
 const Index = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -56,6 +57,8 @@ const Index = ({navigation}) => {
       <Header text="Category" color={colors.white} />
       <SubContainer>
         <SearchBar placeholder="Search Category" />
+        {loading && <CategoryLoading />}
+
         <FlatlistComp
           DATA={categories}
           numColumns={2}

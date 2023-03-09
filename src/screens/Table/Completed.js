@@ -9,6 +9,7 @@ import FlatlistComp from '../../components/FlatListComp';
 import Fab from '../../components/Fab';
 import TableCard from '../../components/Table/TableCard';
 import {api} from '../../constant/api';
+import OrderLoading from '../../components/Placeholders/OrderLoading';
 
 const Completed = () => {
   const [loading, setLoading] = useState(false);
@@ -41,6 +42,7 @@ const Completed = () => {
     <Container>
       <SubContainer>
         <SearchBar placeholder="Search.." />
+        {loading && <OrderLoading />}
         <FlatlistComp
           DATA={tables}
           numberOfColumns={false}

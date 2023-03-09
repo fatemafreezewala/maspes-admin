@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, View} from 'react-native';
 import Container from '../../components/Container';
 import SubContainer from '../../components/SubContainer';
+import OrderLoading from '../../components/Placeholders/OrderLoading';
 
 //demo Data
 // import orders from '../../data/orders';
@@ -46,6 +47,7 @@ const Completed = () => {
   return (
     <Container>
       <SubContainer>
+        {loading && <OrderLoading />}
         <View style={{flexDirection: 'row', overflow: 'scroll'}}>
           {unique.map(res => (
             <SortingPill style={{padding: 4, minWidth: 100}} star={res} />

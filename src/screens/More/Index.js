@@ -42,9 +42,11 @@ const Index = ({navigation}) => {
             title: 'Terms and Conditions',
             type: 3,
           });
+        } else if (item.name === 'Notifications') {
+          navigation.navigate('Notifications');
         } else {
-          console.log('tables');
-          navigation.navigate('Tables');
+          // console.log('tables');
+          // navigation.navigate('Tables');
         }
       }}
       item={item}

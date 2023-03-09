@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import Container from '../../components/Container';
 import SubContainer from '../../components/SubContainer';
 
@@ -9,15 +9,18 @@ import OrderCard from '../../components/Orders/OrderCard';
 import {useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
 import OrderLoading from '../../components/Placeholders/OrderLoading';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Accepted = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    fetchAcceptedOrders();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchAcceptedOrders();
+    }, []),
+  );
 
   const fetchAcceptedOrders = async () => {
     try {
@@ -36,7 +39,11 @@ const Accepted = () => {
 
   const renderTables = ({item}) => (
     <OrderCard
-      onPress={() => navigation.navigate('OrderDetails')}
+      onPress={() =>
+        navigation.navigate('OrderDetails', {
+          data: item,
+        })
+      }
       item={item}
     />
   );

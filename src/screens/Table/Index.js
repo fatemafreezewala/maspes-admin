@@ -19,8 +19,8 @@ const Index = () => {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Upcoming'},
-    {key: 'second', title: 'Completed'},
+    {key: 'first', title: 'Today'},
+    {key: 'second', title: 'Upcoming'},
   ]);
   const renderTabBar = props => (
     <TabBar

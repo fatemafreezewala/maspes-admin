@@ -131,9 +131,11 @@ const OrderCard = ({item, onPress, showUser = true, showSubItems = false}) => {
               <View>
                 {res?.subitems?.length > 0 && (
                   <>
-                    {res?.subitems?.map(subItem => {
+                    {res?.subitems?.map((subItem, i) => {
                       return (
-                        <View style={{marginLeft: 20, flexDirection: 'row'}}>
+                        <View
+                          key={i}
+                          style={{marginLeft: 20, flexDirection: 'row'}}>
                           <View
                             style={{
                               height: 10,

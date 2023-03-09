@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {persist} from 'zustand/middleware';
+import {createJSONStorage, persist} from 'zustand/middleware';
 import zustandStorage from './zustandStorage';
 
 interface UserStore {
@@ -19,7 +19,7 @@ const useUserStore = create<UserStore>()(
     }),
     {
       name: 'user-storage',
-      getStorage: () => zustandStorage,
+      storage: createJSONStorage(() => zustandStorage),
     },
   ),
 );

@@ -12,8 +12,11 @@ import {SvgXml} from 'react-native-svg';
 import globalStyle from '../../styles/globalStyle';
 import margins from '../../utilities/margins';
 import {api} from '../../constant/api';
+import Spinner from '../../components/Spinner';
+import Button from '../../components/Button';
+import toast from '../../utilities/toast';
 
-const OrderDetails = ({route}) => {
+const OrderDetails = ({route, navigation}) => {
   const {data} = route.params;
 
   const [details, setDetails] = useState({});
@@ -30,6 +33,22 @@ const OrderDetails = ({route}) => {
       setLoading(false);
       if (res.data.status === 'success') {
         setDetails(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changeOrderStatus = async status => {
+    try {
+      setLoading(true);
+      const res = await api.post('/ordersstatus/' + data.order_id, {
+        status: status,
+      });
+      setLoading(false);
+      if (res.data.status === 'success') {
+        navigation.goBack();
+        toast('Order marked as accepted');
       }
     } catch (error) {
       console.log(error);
@@ -59,6 +78,7 @@ const OrderDetails = ({route}) => {
   return (
     <Container>
       <Header text="Order Details" color={colors.white} showBack />
+      <Spinner visible={loading} cancelable={false} />
       <SubContainer>
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* User Info */}
@@ -138,6 +158,22 @@ const OrderDetails = ({route}) => {
               />
             )}
             <SvgXml xml={cash} />
+          </View>
+
+          <View style={{marginTop: 20}}>
+            {details?.o_status === '0' && (
+              <Button
+                text="Mark As Accepted"
+                onPress={() => changeOrderStatus('1')}
+              />
+            )}
+
+            {details?.o_status === '1' && (
+              <Button
+                text="Mark As Completed"
+                onPress={() => changeOrderStatus('2')}
+              />
+            )}
           </View>
         </ScrollView>
       </SubContainer>

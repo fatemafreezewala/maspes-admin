@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Container from '../../components/Container';
 import SubContainer from '../../components/SubContainer';
 
@@ -6,7 +6,7 @@ import SubContainer from '../../components/SubContainer';
 import orderss from '../../data/orders';
 import FlatlistComp from '../../components/FlatListComp';
 import OrderCard from '../../components/Orders/OrderCard';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
 import OrderLoading from '../../components/Placeholders/OrderLoading';
 
@@ -15,9 +15,11 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    fetchPendingOrders();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchPendingOrders();
+    }, []),
+  );
 
   const fetchPendingOrders = async () => {
     try {

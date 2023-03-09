@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import Header from '../../components/Header';
 import colors from '../../utilities/colors';
@@ -13,15 +13,55 @@ import {useFocusEffect} from '@react-navigation/native';
 import CategoryLoading from '../../components/Placeholders/CategoryLoading';
 import TextComp from '../../components/TextComp';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Spinner from '../../components/Spinner';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 const Notifications = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+  const fetchNotifications = async () => {
+    try {
+      setLoading(true);
+      const res = await api.post('/notification', {
+        type: 'admin',
+      });
+      setLoading(false);
+      if (res.data.status === 'success') {
+        setData(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteNotif = async id => {
+    try {
+      setLoading(true);
+      const res = await api.delete('/notification/' + id);
+      setLoading(false);
+      if (res.data.status === 'success') {
+        fetchNotifications();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <Header text="Notifications" color={colors.white} showBack />
+      <Spinner visible={loading} />
       <SubContainer>
         <FlatList
-          data={[1, 2, 3, 4, 5, 6, 7]}
-          renderItem={() => {
+          data={data}
+          renderItem={({item}) => {
             return (
               <View style={styles.card}>
                 <Icon
@@ -38,17 +78,21 @@ const Notifications = () => {
                       justifyContent: 'space-between',
                     }}>
                     <TextComp
-                      text="New Order Received"
+                      text={item.notification_title}
                       type="medium"
                       style={{flex: 1}}
                     />
                     <TextComp
-                      text="5 min ago"
+                      text={dayjs(item.notification_createdat).fromNow()}
                       type="medium"
                       color={colors.primary}
                     />
                   </View>
-                  <TextComp text="You have received a new notifiction, please check it" />
+                  <TextComp text={item.notification_desp} />
+                  <TouchableOpacity
+                    onPress={() => deleteNotif(item.notification_id)}>
+                    <TextComp text="Remove" type="medium" color="red" />
+                  </TouchableOpacity>
                 </View>
               </View>
             );

@@ -7,9 +7,10 @@ const wd = Dimensions.get('screen').width - 60;
 const CategoryLoading = () => {
   return (
     <View style={{marginTop: 10}}>
-      {[1, 2, 3, 4, 5, 6, 7].map(item => {
+      {[1, 2, 3, 4, 5, 6, 7].map((item, i) => {
         return (
           <View
+            key={i}
             style={{
               flexDirection: 'row',
               justifyContent: 'center',

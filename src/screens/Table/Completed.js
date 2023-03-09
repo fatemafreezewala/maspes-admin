@@ -10,6 +10,7 @@ import Fab from '../../components/Fab';
 import TableCard from '../../components/Table/TableCard';
 import {api} from '../../constant/api';
 import OrderLoading from '../../components/Placeholders/OrderLoading';
+import dayjs from 'dayjs';
 
 const Completed = () => {
   const [loading, setLoading] = useState(false);
@@ -25,7 +26,8 @@ const Completed = () => {
       const res = await api.post('/tables', {
         table_restro_id: '1',
         table_status: '1',
-        table_date: '06-03-2023',
+        table_date: dayjs().format('DD-MM-YYYY'),
+        today: false,
       });
       setLoading(false);
       if (res.data.status === 'success') {

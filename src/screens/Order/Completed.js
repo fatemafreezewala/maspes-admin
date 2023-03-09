@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, View} from 'react-native';
 import Container from '../../components/Container';
 import SubContainer from '../../components/SubContainer';
@@ -9,7 +9,7 @@ import OrderLoading from '../../components/Placeholders/OrderLoading';
 import FlatlistComp from '../../components/FlatListComp';
 import OrderCard from '../../components/Orders/OrderCard';
 import SortingPill from '../../components/Orders/SortingPill';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
 
 const Completed = () => {
@@ -17,9 +17,11 @@ const Completed = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    fetchCompletedOrders();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchCompletedOrders();
+    }, []),
+  );
 
   const fetchCompletedOrders = async () => {
     try {
@@ -38,7 +40,11 @@ const Completed = () => {
 
   const renderTables = ({item}) => (
     <OrderCard
-      onPress={() => navigation.navigate('OrderDetails')}
+      onPress={() =>
+        navigation.navigate('OrderDetails', {
+          data: item,
+        })
+      }
       item={item}
     />
   );
@@ -49,8 +55,12 @@ const Completed = () => {
       <SubContainer>
         {loading && <OrderLoading />}
         <View style={{flexDirection: 'row', overflow: 'scroll'}}>
-          {unique.map(res => (
-            <SortingPill style={{padding: 4, minWidth: 100}} star={res} />
+          {unique.map((res, i) => (
+            <SortingPill
+              key={i}
+              style={{padding: 4, minWidth: 100}}
+              star={res}
+            />
           ))}
         </View>
         <FlatlistComp

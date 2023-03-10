@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import Login from '../screens/Auth/Login';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import Home from '../screens/Home/Index';
+import Table from '../screens/Table/Index';
 import AuthContext, {defaultState, reducer, restoreToken} from './Auth';
 import Tab from './Tab';
 import Editor from '../screens/Editor';
@@ -90,6 +90,12 @@ const App = () => {
                   name="ResDetails"
                   component={ResDetails}
                 />
+                <Stack.Screen
+                  options={screenOptions}
+                  name="Table"
+                  component={Table}
+                />
+                
               </>
             )}
           </Stack.Navigator>

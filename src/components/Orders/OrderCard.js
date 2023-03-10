@@ -179,7 +179,8 @@ const OrderCard = ({item, onPress, showUser = true, showSubItems = false}) => {
             {item.o_placed_date} {item.o_placed_time}
           </Text>
         </Text>
-        <Text
+        {item.o_status == 2 ? (
+          <Text
           style={{
             fontSize: 10,
             color: colors.black,
@@ -190,6 +191,17 @@ const OrderCard = ({item, onPress, showUser = true, showSubItems = false}) => {
             {item.o_delivered_date} {item.o_delivered_time}
           </Text>
         </Text>
+        ) : (
+          <Text
+          style={{
+            fontSize: 10,
+            color: colors.black,
+            fontFamily: fontFamily.medium,
+          }}>
+          <Text style={{color: 'red'}}>On Hold</Text>
+          
+        </Text>
+        )}
       </View>
     </Pressable>
   );

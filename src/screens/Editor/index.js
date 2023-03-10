@@ -61,7 +61,7 @@ const Editor = ({route, navigation}) => {
   };
 
   const saveDataToAPI = async () => {
-    console.log(details);
+    console.log(contentRef.current);
     if (details.restro_name === undefined) {
       return;
     }
@@ -86,6 +86,7 @@ const Editor = ({route, navigation}) => {
         type === 3 ? contentRef.current : details.restro_terms,
       );
       setLoading(true);
+      console.log(formData)
       const res = await api.put('/restro/1', formData);
       setLoading(false);
       if (res.data.status === 'success') {
@@ -95,7 +96,7 @@ const Editor = ({route, navigation}) => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+     console.log(error);
     }
   };
 

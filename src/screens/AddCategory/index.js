@@ -35,6 +35,7 @@ const AddCategory = ({route, navigation}) => {
   }, []);
 
   const checkIfUpdate = () => {
+    console.log(data)
     if (isEdit) {
       setNameEn(data.category_name_en);
       setNameSp(data.category_name_sp);
@@ -170,13 +171,13 @@ const AddCategory = ({route, navigation}) => {
               onChangeText={setNameSp}
               value={nameSp}
             />
-            <TextInputComp
+            {/* <TextInputComp
               placeholder="Description"
               onChangeText={setDesc}
               multiline={true}
               style={{height: 100}}
               value={desc}
-            />
+            /> */}
             <Button
               text="SUBMIT"
               onPress={() => validateData()}

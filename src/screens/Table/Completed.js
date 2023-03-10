@@ -25,7 +25,7 @@ const Completed = () => {
       setLoading(true);
       const res = await api.post('/tables', {
         table_restro_id: '1',
-        table_status: '1',
+        table_status: '0',
         table_date: dayjs().format('DD-MM-YYYY'),
         today: false,
       });

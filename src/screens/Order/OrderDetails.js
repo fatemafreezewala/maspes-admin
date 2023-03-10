@@ -157,6 +157,14 @@ const OrderDetails = ({route, navigation}) => {
                 color={colors.black}
               />
             )}
+             {data.o_payment_method === '3' && (
+              <TextComp
+                text="Wallet"
+                type="medium"
+                fontSize={16}
+                color={colors.black}
+              />
+            )}
             <SvgXml xml={cash} />
           </View>
 

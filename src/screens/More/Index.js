@@ -48,7 +48,7 @@ const Index = ({navigation}) => {
           navigation.navigate('ResDetails');
         } else {
           // console.log('tables');
-          // navigation.navigate('Tables');
+          navigation.navigate('Table');
         }
       }}
       item={item}

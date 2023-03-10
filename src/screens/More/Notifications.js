@@ -83,7 +83,7 @@ const Notifications = () => {
                       style={{flex: 1}}
                     />
                     <TextComp
-                      text={dayjs(item.notification_createdat).fromNow()}
+                      text={item.notification_createdat}
                       type="medium"
                       color={colors.primary}
                     />

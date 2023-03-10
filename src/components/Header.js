@@ -25,7 +25,7 @@ const Header = ({color, text, showBack = false}) => {
       <View style={{flex: 3, justifyContent: 'center', alignItems: 'center'}}>
         <TextComp
           color={color}
-          fontSize={fontSize.fs18}
+          fontSize={fontSize.fs16}
           text={text}
           style={{textTransform: 'uppercase', textAlign: 'center'}}
           type={'medium'}

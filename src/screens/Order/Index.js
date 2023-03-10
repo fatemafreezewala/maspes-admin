@@ -32,13 +32,12 @@ const Index = () => {
       style={{backgroundColor: colors.white}}
       activeColor={colors.primary}
       inactiveColor={colors.iconinactive}
-      labelStyle={{fontFamily: fontFamily.medium, textTransform: 'capitalize'}}
+      labelStyle={{fontFamily: fontFamily.medium, textTransform: 'capitalize',fontSize:12}}
     />
   );
   return (
     <Container>
       <Header text="Orders" color={colors.white} />
-
       <TabView
         renderTabBar={renderTabBar}
         navigationState={{index, routes}}

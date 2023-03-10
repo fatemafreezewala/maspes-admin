@@ -20,18 +20,18 @@ const UserCard = ({item, fetchUsers}) => {
   const [loading, setLoading] = useState(false);
   const userIco = `
   <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g clip-path="url(#clip0_344_3008)">
-  <rect width="40" height="40" rx="20" fill="white"/>
-  <rect x="12" y="6" width="16" height="16" rx="8" fill=${colors.primary}/>
-  <rect x="-10" y="27" width="60" height="60" rx="30" fill=${colors.primary}/>
-  </g>
-  <rect x="0.3" y="0.3" width="39.4" height="39.4" rx="19.7" stroke="#D0E3DC" stroke-width="0.6"/>
-  <defs>
-  <clipPath id="clip0_344_3008">
-  <rect width="40" height="40" rx="20" fill="white"/>
-  </clipPath>
-  </defs>
-  </svg>
+    <g clip-path="url(#clip0_344_3008)">
+    <rect width="40" height="40" rx="20" fill="white"/>
+    <rect x="12" y="6" width="16" height="16" rx="8" fill=${colors.primary}/>
+    <rect x="-10" y="27" width="60" height="60" rx="30" fill=${colors.primary}/>
+    </g>
+    <rect x="0.3" y="0.3" width="39.4" height="39.4" rx="19.7" stroke="#D0E3DC" stroke-width="0.6"/>
+    <defs>
+    <clipPath id="clip0_344_3008">
+    <rect width="40" height="40" rx="20" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
   `;
   const deleteIcon = `<svg width="25" height="25" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M13 10V16" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

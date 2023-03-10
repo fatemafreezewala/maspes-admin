@@ -34,6 +34,7 @@ const AddProduct = ({route, navigation}) => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isVeg, setIsVeg] = useState('1');
+  const [isPopular, setisPopular] = useState('0');
 
   useEffect(() => {
     checkIfUpdate();
@@ -48,6 +49,7 @@ const AddProduct = ({route, navigation}) => {
         path: `${imageUrl}/${data?.prod_name_image}`,
       });
       setIsVeg(data?.prod_isveg.toString());
+      setisPopular(data?.prod_is_popular.toString())
       setPriceOffer(data?.prod_offer_price.toString());
       setPriceRegular(data?.prod_normal_price.toString());
     }
@@ -105,7 +107,7 @@ const AddProduct = ({route, navigation}) => {
       fd.append('prod_name_sp', nameSp);
       fd.append('prod_normal_price', priceRegular);
       fd.append('prod_offer_price', priceOffer);
-      fd.append('prod_is_popular', '1');
+      fd.append('prod_is_popular', isPopular);
       fd.append('prod_desp_en', desc);
       fd.append('prod_desp_sp', desc);
       fd.append('prod_isactive', '1');
@@ -254,6 +256,22 @@ const AddProduct = ({route, navigation}) => {
                 />
                 <TextComp text="Non Veg" type="medium" />
               </TouchableOpacity>
+            </View>
+            <View style={styles.row}>
+              <TouchableOpacity
+                onPress={() => setisPopular(isPopular == '1' ? '0' : '1')}
+                style={styles.checkWrap}>
+                <Icon
+                  name={
+                    isPopular === '1' ? 'checkbox-marked' : 'checkbox-blank-outline'
+                  }
+                  color={colors.primary}
+                  size={25}
+                  style={{marginRight: 10}}
+                />
+                <TextComp text="Is Popular" type="medium" />
+              </TouchableOpacity>
+             
             </View>
             <Button
               text="SUBMIT"

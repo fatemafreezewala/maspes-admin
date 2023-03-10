@@ -14,7 +14,7 @@ import colors from '../../utilities/colors';
 import FA from 'react-native-vector-icons/FontAwesome';
 import globalStyle from '../../styles/globalStyle';
 import margins from '../../utilities/margins';
-const PdfMakeComp = () => {
+const PdfMakeComp = ({item}) => {
   const generatePDF = () => {
     var dd = {
       pageMargins: [0, 0, 0, 0],
@@ -22,8 +22,13 @@ const PdfMakeComp = () => {
         columns: ['Left part', {text: 'Right part', alignment: 'right'}],
       },
       content: [
-        'First paragraph',
-        'Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines',
+        `Table Name: ${item.table_name}`,
+        `Table Number of Guest: ${item.table_no_of_guest}`,
+        `Date Time: ${item.table_date} ${item.table_time}`,
+        {
+	        image:item.table_qr,
+           width: 200
+		},
       ],
     };
     const pdfDocGenerator = pdfMake.createPdf(dd);

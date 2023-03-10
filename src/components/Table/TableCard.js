@@ -50,6 +50,7 @@ const TableCard = ({item}) => {
         alignItems: 'center',
       }}>
       <View>
+      
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TextComp
             fontSize={20}
@@ -64,6 +65,15 @@ const TableCard = ({item}) => {
             type="normal"
             text={'No. of Guest'}
           />
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TextComp
+            fontSize={14}
+            color={colors.black}
+            type="medium"
+            text={item.table_name}
+          />
+          
         </View>
         <View
           style={[
@@ -92,7 +102,9 @@ const TableCard = ({item}) => {
       </View>
       <View>
         <SvgXml xml={qr} />
-        <PdfMakeComp />
+        <View style={{marginTop: margins.m5}}>
+          <PdfMakeComp item={item} />
+        </View>
       </View>
     </View>
   );

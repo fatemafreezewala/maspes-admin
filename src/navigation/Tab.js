@@ -81,19 +81,11 @@ const App = () => {
         component={Users}
         options={{
           tabBarIcon: ({color, size, focused}) => (
-            <Icon3 color={focused ? colors.primary : colors.iconinactive} />
+            <Icon2 color={focused ? colors.primary : colors.iconinactive} />
           ),
         }}
       />
-      <Tab.Screen
-        name="Tables"
-        component={Tables}
-        options={{
-          tabBarIcon: ({color, size, focused}) => (
-            <Icon3 color={focused ? colors.primary : colors.iconinactive} />
-          ),
-        }}
-      />
+      {/*  */}
 
       <Tab.Screen
         name="More"

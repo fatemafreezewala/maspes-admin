@@ -136,7 +136,7 @@ const AddCategory = ({route, navigation}) => {
       <SubContainer>
         <KeyboardAvoidingView
           style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
-          behavior="padding"
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           enabled
           keyboardVerticalOffset={100}>
           <ScrollView showsVerticalScrollIndicator={false}>

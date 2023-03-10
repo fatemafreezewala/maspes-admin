@@ -45,6 +45,7 @@ const Index = ({navigation}) => {
         toast(res.data?.message);
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -80,11 +81,13 @@ const Index = ({navigation}) => {
           keyboardType="email-address"
           type="email"
           onChangeText={setEmail}
+          value={email}
         />
         <TextInputComp
           type="password"
           placeholder="Password"
           onChangeText={setPassword}
+          value={password}
         />
         <Button onPress={onLogin} loading={loading} text="Login" />
       </View>

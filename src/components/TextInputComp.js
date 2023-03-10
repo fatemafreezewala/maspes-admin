@@ -12,6 +12,7 @@ const TextInputComp = props => {
     onChangeText,
     style,
     value = '',
+    autoCapitalize,
     multiline = false,
     keyboardType = 'default',
     ...otherProps
@@ -26,6 +27,7 @@ const TextInputComp = props => {
       keyboardType={keyboardType}
       textAlignVertical="top"
       multiline={multiline}
+      autoCapitalize={autoCapitalize}
       value={value}
       style={[
         styles.input,

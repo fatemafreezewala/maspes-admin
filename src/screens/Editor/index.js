@@ -20,11 +20,13 @@ import {
 } from 'react-native-pell-rich-editor';
 import Button from '../../components/Button';
 import toast from '../../utilities/toast';
+import {useUserStore} from '../../constant/store';
 
 const initHTML = '';
 
 const Editor = ({route, navigation}) => {
   const {title, type} = route.params; //type 1-about, 2-privacy, 3-terms
+  const [user] = useUserStore(s => [s.user]);
   let [emojiVisible, setEmojiVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState({});
@@ -86,10 +88,15 @@ const Editor = ({route, navigation}) => {
         type === 3 ? contentRef.current : details.restro_terms,
       );
       setLoading(true);
-      const res = await api.put('/restro/1', formData);
+      const res = await api.put('/restro/' + user.admin_restro_id, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       setLoading(false);
       if (res.data.status === 'success') {
         toast('Details Updated Successfully');
+        navigation.goBack();
       } else {
         toast(res.data.message);
       }

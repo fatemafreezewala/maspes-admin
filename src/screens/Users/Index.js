@@ -13,6 +13,7 @@ import UserCard from '../../components/User/UserCard';
 import Fab from '../../components/Fab';
 import {api} from '../../constant/api';
 import OrderLoading from '../../components/Placeholders/OrderLoading';
+import EmptyImage from '../../components/EmptyImage';
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -48,6 +49,7 @@ const Index = () => {
       <SubContainer>
         <SearchBar placeholder={'Search Users'} onChangeText={setTerm} />
         {loading && <OrderLoading />}
+        {users.length === 0 && <EmptyImage />}
         <FlatlistComp
           DATA={users.filter(item =>
             item.admin_name.toLowerCase()?.includes(term.toLowerCase()),

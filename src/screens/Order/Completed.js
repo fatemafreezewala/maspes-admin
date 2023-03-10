@@ -11,6 +11,7 @@ import OrderCard from '../../components/Orders/OrderCard';
 import SortingPill from '../../components/Orders/SortingPill';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
+import EmptyImage from '../../components/EmptyImage';
 
 const Completed = () => {
   const navigation = useNavigation();
@@ -54,6 +55,7 @@ const Completed = () => {
     <Container>
       <SubContainer>
         {loading && <OrderLoading />}
+        {orders.length === 0 && <EmptyImage />}
         <View style={{flexDirection: 'row', overflow: 'scroll'}}>
           {unique.map((res, i) => (
             <SortingPill

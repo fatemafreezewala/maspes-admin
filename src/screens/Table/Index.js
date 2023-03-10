@@ -34,7 +34,7 @@ const Index = () => {
   );
   return (
     <Container>
-      <Header text="Table Bookings" color={colors.white} />
+      <Header text="Table Bookings" color={colors.white} showBack />
 
       <TabView
         renderTabBar={renderTabBar}

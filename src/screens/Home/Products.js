@@ -13,6 +13,7 @@ import Fab from '../../components/Fab';
 import {api} from '../../constant/api';
 import {useFocusEffect} from '@react-navigation/native';
 import CategoryLoading from '../../components/Placeholders/CategoryLoading';
+import EmptyImage from '../../components/EmptyImage';
 
 const Index = ({navigation, route}) => {
   const {category} = route.params;
@@ -59,6 +60,7 @@ const Index = ({navigation, route}) => {
       <SubContainer>
         <SearchBar placeholder="Search products" onChangeText={setTerm} />
         {loading && <CategoryLoading />}
+        {products.length === 0 && <EmptyImage />}
         <FlatlistComp
           DATA={products.filter(item =>
             item.prod_name_en.toLowerCase()?.includes(term.toLowerCase()),

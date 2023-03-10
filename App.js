@@ -1,5 +1,5 @@
 import {StyleSheet, SafeAreaView, StatusBar, LogBox} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import AppNavigator from './src/navigation/MainNavigator';
 import {
   MD3LightTheme as DefaultTheme,
@@ -8,6 +8,7 @@ import {
 } from 'react-native-paper';
 import colors from './src/utilities/colors';
 import fontFamily from './src/utilities/fontFamily';
+import SplashScreen from 'react-native-splash-screen';
 
 LogBox.ignoreLogs([
   'Unsupported dashed / dotted border style',
@@ -78,6 +79,12 @@ const App = () => {
     },
     fonts: configureFonts({config: fontConfig}),
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>

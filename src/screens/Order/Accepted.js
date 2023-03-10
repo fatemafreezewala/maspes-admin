@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
 import OrderLoading from '../../components/Placeholders/OrderLoading';
 import {useFocusEffect} from '@react-navigation/native';
+import EmptyImage from '../../components/EmptyImage';
 
 const Accepted = () => {
   const navigation = useNavigation();
@@ -52,6 +53,7 @@ const Accepted = () => {
     <Container>
       <SubContainer>
         {loading && <OrderLoading />}
+        {orders.length === 0 && <EmptyImage />}
         <FlatlistComp
           DATA={orders}
           numberOfColumns={false}

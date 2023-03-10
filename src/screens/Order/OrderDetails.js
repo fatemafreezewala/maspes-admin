@@ -113,7 +113,7 @@ const OrderDetails = ({route, navigation}) => {
               <TextComp
                 type="medium"
                 color={colors.black}
-                text={data.user_name}
+                text={details?.address}
               />
               <TextComp color={colors.black} text={data.user_phone} />
             </View>
@@ -157,7 +157,7 @@ const OrderDetails = ({route, navigation}) => {
                 color={colors.black}
               />
             )}
-             {data.o_payment_method === '3' && (
+            {data.o_payment_method === '3' && (
               <TextComp
                 text="Wallet"
                 type="medium"

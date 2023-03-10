@@ -21,6 +21,7 @@ import {
 import Button from '../../components/Button';
 import toast from '../../utilities/toast';
 import {useUserStore} from '../../constant/store';
+import Spinner from '../../components/Spinner';
 
 const initHTML = '';
 
@@ -102,7 +103,7 @@ const Editor = ({route, navigation}) => {
       }
     } catch (error) {
       setLoading(false);
-     console.log(error);
+      console.log(error);
     }
   };
 
@@ -150,7 +151,8 @@ const Editor = ({route, navigation}) => {
 
   return (
     <Container>
-      <Header text={title} color={colors.white} />
+      <Header text={title} color={colors.white} showBack />
+      <Spinner visible={loading} />
       <SubContainer>
         <RichToolbar
           style={[styles.richBar, false && styles.richBarDark]}

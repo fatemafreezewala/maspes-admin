@@ -11,6 +11,7 @@ import TableCard from '../../components/Table/TableCard';
 import {api} from '../../constant/api';
 import OrderLoading from '../../components/Placeholders/OrderLoading';
 import dayjs from 'dayjs';
+import EmptyImage from '../../components/EmptyImage';
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -45,6 +46,7 @@ const Index = () => {
       <SubContainer>
         <SearchBar placeholder="Search.." />
         {loading && <OrderLoading />}
+        {tables.length === 0 && <EmptyImage />}
         <FlatlistComp
           DATA={tables}
           numberOfColumns={false}

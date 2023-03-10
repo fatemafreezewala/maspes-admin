@@ -13,6 +13,7 @@ import Fab from '../../components/Fab';
 import {api} from '../../constant/api';
 import {useFocusEffect} from '@react-navigation/native';
 import CategoryLoading from '../../components/Placeholders/CategoryLoading';
+import EmptyImage from '../../components/EmptyImage';
 
 const Index = ({navigation, onChangeText}) => {
   const [loading, setLoading] = useState(false);
@@ -59,7 +60,7 @@ const Index = ({navigation, onChangeText}) => {
       <SubContainer>
         <SearchBar placeholder="Search Category" onChangeText={setTerm} />
         {loading && <CategoryLoading />}
-
+        {categories.length === 0 && <EmptyImage />}
         <FlatlistComp
           DATA={categories.filter(item =>
             item.category_name_en.toLowerCase()?.includes(term.toLowerCase()),

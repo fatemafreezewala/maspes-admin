@@ -1,4 +1,4 @@
-package com.restaurantadmin;
+package com.maspes.admin;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

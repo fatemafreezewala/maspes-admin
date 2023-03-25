@@ -9,6 +9,8 @@ import {
 import colors from './src/utilities/colors';
 import fontFamily from './src/utilities/fontFamily';
 import SplashScreen from 'react-native-splash-screen';
+import notifee from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging';
 
 LogBox.ignoreLogs([
   'Unsupported dashed / dotted border style',
@@ -84,7 +86,37 @@ const App = () => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 1000);
+    requestPermission();
+    messaging().onMessage(onMessageReceived);
   }, []);
+
+  const onMessageReceived = async remoteMsg => {
+    console.log('remoteMsg', remoteMsg);
+    const channelId = await notifee.createChannel({
+      id: 'default',
+      name: 'Default Channel',
+    });
+
+    await notifee.displayNotification({
+      title: remoteMsg.data?.title,
+      body: remoteMsg.data?.body,
+      android: {
+        channelId,
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
+  };
+
+  const requestPermission = async () => {
+    const channels = await notifee.getChannels();
+    console.log({channels});
+    await notifee.requestPermission();
+    await messaging().registerDeviceForRemoteMessages();
+    const token = await messaging().getToken();
+    console.log('token', token);
+  };
 
   return (
     <SafeAreaView style={{flex: 1}}>

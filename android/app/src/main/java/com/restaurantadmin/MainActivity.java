@@ -1,4 +1,4 @@
-package com.restaurantadmin;
+package com.maspes.admin;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

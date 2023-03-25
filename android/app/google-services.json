@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "125152910647",
+    "project_id": "maspes-admin",
+    "storage_bucket": "maspes-admin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125152910647:android:248438e96e3a7a6df88eb2",
+        "android_client_info": {
+          "package_name": "com.maspes.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125152910647-rk7352ubehp5n4vbc45mmmrse8hdcrna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHlALSB17wLLzBaZLId2S6MCNUrsr2zV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125152910647-rk7352ubehp5n4vbc45mmmrse8hdcrna.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "125152910647-damq6fdik0hgo8q62a9snqsddmp38mgk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.maspes.admin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

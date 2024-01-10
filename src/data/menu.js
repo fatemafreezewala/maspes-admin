@@ -23,6 +23,11 @@ export default [
   },
   {
     id: '5',
+    name: 'Send Notifications',
+    image: menu.m4,
+  },
+  {
+    id: '5',
     name: 'Restaurant detail',
     image: menu.m5,
   },

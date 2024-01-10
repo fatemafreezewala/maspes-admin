@@ -10,13 +10,29 @@ import fontFamily from '../../utilities/fontFamily';
 import Pending from './Pending';
 import Completed from './Completed';
 import Accepted from './Accepted';
+import Rejected from './Rejected';
 
 const Index = () => {
-  const renderScene = SceneMap({
-    first: Pending,
-    second: Accepted,
-    third: Completed,
-  });
+  // const renderScene = SceneMap({
+  //   first: Pending,
+  //   second: Accepted,
+  //   third: Completed,
+  //   fourth: Rejected,
+  // });
+  const renderScene = ({ route }) => {
+    switch (route.key) {
+        case 'first':
+            return <Pending />
+        case 'second':
+            return <Accepted />
+        case 'third':
+            return <Completed />
+        case 'fourth':
+            return <Rejected />
+        default:
+          return null;
+    }
+}
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
@@ -24,6 +40,7 @@ const Index = () => {
     {key: 'first', title: 'Pending'},
     {key: 'second', title: 'Accepted'},
     {key: 'third', title: 'Completed'},
+    {key: 'fourth', title: 'Rejected'},
   ]);
   const renderTabBar = props => (
     <TabBar
@@ -32,7 +49,7 @@ const Index = () => {
       style={{backgroundColor: colors.white}}
       activeColor={colors.primary}
       inactiveColor={colors.iconinactive}
-      labelStyle={{fontFamily: fontFamily.medium, textTransform: 'capitalize',fontSize:12}}
+      labelStyle={{fontFamily: fontFamily.medium, textTransform: 'capitalize',fontSize:11}}
     />
   );
   return (

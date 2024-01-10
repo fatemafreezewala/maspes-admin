@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Container from '../../components/Container';
 import SubContainer from '../../components/SubContainer';
-import {View, Image, ScrollView} from 'react-native';
+import {View, Image, ScrollView, TouchableOpacity} from 'react-native';
 //demo Data
 import orders from '../../data/orders';
 import OrderCard from '../../components/Orders/OrderCard';
@@ -32,6 +32,7 @@ const OrderDetails = ({route, navigation}) => {
       const res = await api.get('/orders/' + data.order_id);
       setLoading(false);
       if (res.data.status === 'success') {
+        console.log(res.data.data);
         setDetails(res.data.data);
       }
     } catch (error) {
@@ -70,7 +71,7 @@ const OrderDetails = ({route, navigation}) => {
   </svg>
   `;
   const location = `
-  <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="30" height="30" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
   <circle cx="19.5" cy="19.5" r="19.5" fill="#FDD161"/>
   <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4778 20.1808L17.0664 26.3965C18.148 28.2699 20.8521 28.2699 21.9337 26.3965L25.5223 20.1808C28.1989 15.5449 24.8532 9.74997 19.5001 9.74997C14.1469 9.74997 10.8012 15.5449 13.4778 20.1808ZM19.5933 18.8533C20.8502 18.8533 21.8691 17.8344 21.8691 16.5775C21.8691 15.3206 20.8502 14.3016 19.5933 14.3016C18.3364 14.3016 17.3174 15.3206 17.3174 16.5775C17.3174 17.8344 18.3364 18.8533 19.5933 18.8533Z" fill="white"/>
   </svg>
@@ -85,15 +86,15 @@ const OrderDetails = ({route, navigation}) => {
           <TextComp
             text="User Info"
             type="medium"
-            fontSize={16}
+            fontSize={14}
             style={{marginVertical: margins.m5}}
             color={colors.black}
           />
           <View style={globalStyle.row}>
-            <Image
+            {/* <Image
               source={require('../../assets/images/demo/user/User-40.jpg')}
-            />
-            <View style={{marginLeft: margins.m5}}>
+            /> */}
+            <View style={{marginLeft: 2}}>
               <TextComp
                 type="medium"
                 color={colors.black}
@@ -106,24 +107,29 @@ const OrderDetails = ({route, navigation}) => {
             style={[
               globalStyle.boxborder,
               globalStyle.row,
-              {padding: margins.m5, marginTop: margins.m5},
+              {padding: 6, marginTop: 10},
             ]}>
             <SvgXml xml={location} />
-            <View style={{marginLeft: margins.m5}}>
+            <View style={{marginLeft: margins.m3}}>
+              <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('MapScreen',{address:details?.address,lattitude:details?.lattitude,longitude:details?.longitude});
+                }}>
               <TextComp
                 type="medium"
                 color={colors.black}
                 text={details?.address}
               />
-              <TextComp color={colors.black} text={data.user_phone} />
+              {/* <TextComp color={colors.black} text={data.user_phone} /> */}
+              </TouchableOpacity>
             </View>
           </View>
           {/* Food Items */}
           <TextComp
             text="Food Item"
             type="medium"
-            fontSize={16}
-            style={{marginTop: margins.m5}}
+            fontSize={14}
+            style={{marginTop: margins.m3,marginBottom:-15}}
             color={colors.black}
           />
           <OrderCard showUser={false} item={details} showSubItems={true} />
@@ -131,21 +137,22 @@ const OrderDetails = ({route, navigation}) => {
           <TextComp
             text="Payment Methods"
             type="medium"
-            fontSize={16}
-            style={{marginVertical: margins.m5}}
+            fontSize={14}
+            style={{marginVertical: margins.m3,marginBottom:5}}
             color={colors.black}
           />
           <View
             style={[
               globalStyle.boxborder,
               globalStyle.rowSpace,
-              {padding: margins.m5},
+              {padding: margins.m3},
             ]}>
             {data.o_payment_method === '1' && (
               <TextComp
                 text="Cash on delivery"
                 type="medium"
-                fontSize={16}
+                fontSize={14}
+                style={{marginVertical: margins.m3,marginBottom:5}}
                 color={colors.black}
               />
             )}
@@ -153,7 +160,7 @@ const OrderDetails = ({route, navigation}) => {
               <TextComp
                 text="Online"
                 type="medium"
-                fontSize={16}
+                fontSize={14}
                 color={colors.black}
               />
             )}
@@ -161,12 +168,67 @@ const OrderDetails = ({route, navigation}) => {
               <TextComp
                 text="Wallet"
                 type="medium"
-                fontSize={16}
+                fontSize={14}
                 color={colors.black}
               />
             )}
             <SvgXml xml={cash} />
           </View>
+        {/* Coupon */}
+          {details?.coupon_code ? (
+          <TextComp
+            text="Coupon"
+            type="medium"
+            fontSize={14}
+            style={{marginVertical: margins.m3,marginBottom:5}}
+            color={colors.black}
+          />
+          ):null}
+          {details?.coupon_code ? (
+          <View
+            style={[
+              globalStyle.boxborder,
+              globalStyle.rowSpace,
+              {padding: margins.m3},
+            ]}>
+              <TextComp
+                text={details?.coupon_code}
+                type="medium"
+                fontSize={14}
+                color={colors.black}
+              />
+              <TextComp
+                text={'$'+details?.coupon_amt}
+                type="medium"
+                fontSize={14}
+                color={colors.black}
+              />
+          </View>
+          ):null}
+
+          {details?.o_notes ? (
+          <TextComp
+            text="Note"
+            type="medium"
+            fontSize={14}
+            style={{marginVertical: margins.m3,marginBottom:5}}
+            color={colors.black}
+          />
+          ):null}
+          {details?.o_notes ? (
+          <View
+            style={[
+              globalStyle.rowSpace,
+              {padding: margins.m3},
+            ]}>
+              <TextComp
+                text={details?.o_notes}
+                type="medium"
+                fontSize={14}
+                color={colors.black}
+              />
+          </View>
+          ):null}
 
           <View style={{marginTop: 20}}>
             {details?.o_status === '0' && (

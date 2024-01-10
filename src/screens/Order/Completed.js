@@ -13,16 +13,20 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
 import EmptyImage from '../../components/EmptyImage';
 
-const Completed = () => {
+const Completed = (props) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchCompletedOrders();
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     fetchCompletedOrders();
+  //   }, []),
+  // );
+
+  useEffect(() => {
+    fetchCompletedOrders();
+  },[props])
 
   const fetchCompletedOrders = async () => {
     try {

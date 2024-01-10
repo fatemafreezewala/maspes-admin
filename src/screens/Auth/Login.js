@@ -1,5 +1,5 @@
 import {StyleSheet, TextInput, View} from 'react-native';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import colors from '../../utilities/colors';
 import Container from '../../components/Container';
 import TextComp from '../../components/TextComp';
@@ -26,18 +26,17 @@ const Index = ({navigation}) => {
     }
 
     try {
+      console.log('email',email);
+      console.log('password',stringMd5(password));
       setLoading(true);
       const res = await api.post('/admin', {
         admin_email: email,
-        admin_password: stringMd5(password),
+        admin_password: password,
       });
-      setLoading(false);
       console.log(res.data);
       if (res.status === 200) {
         if (res.data.status === 'success') {
-          await AsyncStorage.setItem('USER_TOKEN', '123');
-          setUser(res.data.data);
-          signIn('123');
+          addToken(res?.data?.data)
         } else {
           toast(res.data?.message);
         }
@@ -49,6 +48,31 @@ const Index = ({navigation}) => {
       console.log(error);
     }
   };
+
+  const addToken = async (data) => {
+    console.log('ID',data?.admin_id)
+    try {
+      const res = await api.post(`/admin/${data?.admin_id}`, {
+        token: global.token,
+      });
+      setLoading(false);
+      console.log(res.data);
+      if (res.status === 200) {
+        if (res.data.status === 'success') {
+          await AsyncStorage.setItem('USER_TOKEN', '123');
+          setUser(data);
+          signIn('123');
+        } else {
+          toast(res.data?.message);
+        }
+      } else {
+        toast(res.data?.message);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
 
   return (
     <Container>
@@ -88,6 +112,7 @@ const Index = ({navigation}) => {
           placeholder="Password"
           onChangeText={setPassword}
           value={password}
+          texttype={true}
         />
         <Button onPress={onLogin} loading={loading} text="Login" />
       </View>

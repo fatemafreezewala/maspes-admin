@@ -18,7 +18,7 @@ const TextInputComp = props => {
     ...otherProps
   } = props;
   const [focus, setFocus] = React.useState(false);
-  const [texttype, setTextType] = React.useState(false);
+  const [texttype, setTextType] = React.useState(props?.texttype);
   return (
     <TextInput
       onChangeText={onChangeText}
@@ -58,7 +58,7 @@ const TextInputComp = props => {
             onPress={() => {
               setTextType(!texttype);
             }}
-            icon={texttype ? 'eye' : 'eye-off'}
+            icon={texttype ? 'eye-off' : 'eye'}
           />
         )
       }

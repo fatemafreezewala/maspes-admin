@@ -37,12 +37,19 @@ const Index = ({navigation}) => {
             title: 'Privacy Policy',
             type: 2,
           });
-        } else if (item.name === 'Terms') {
+        } 
+        else if (item.name === 'Terms') {
           navigation.navigate('Editor', {
             title: 'Terms and Conditions',
             type: 3,
           });
-        } else if (item.name === 'Notifications') {
+        } 
+        else if (item.name === 'Send Notifications') {
+          navigation.navigate('SendNotify', {
+            title: 'Send Notifications',
+          });
+        } 
+        else if (item.name === 'Notifications') {
           navigation.navigate('Notifications');
         } else if (item.name === 'Restaurant detail') {
           navigation.navigate('ResDetails');

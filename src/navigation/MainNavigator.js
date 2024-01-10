@@ -11,6 +11,8 @@ import AddProduct from '../screens/AddProduct';
 import AddCategory from '../screens/AddCategory';
 import Notifications from '../screens/More/Notifications';
 import ResDetails from '../screens/More/ResDetails';
+import SendNotify from '../screens/More/SendNotify';
+import MapScreen from '../screens/Map';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +68,11 @@ const App = () => {
                   component={Tab}
                 />
                 <Stack.Screen
+                  options={{headerShown:false}}
+                  name="MapScreen"
+                  component={MapScreen}
+                />
+                <Stack.Screen
                   options={screenOptions}
                   name="Editor"
                   component={Editor}
@@ -79,6 +86,11 @@ const App = () => {
                   options={screenOptions}
                   name="AddCategory"
                   component={AddCategory}
+                />
+                <Stack.Screen
+                  options={screenOptions}
+                  name="SendNotify"
+                  component={SendNotify}
                 />
                 <Stack.Screen
                   options={screenOptions}

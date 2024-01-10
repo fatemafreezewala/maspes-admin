@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import colors from '../../utilities/colors';
 import {SvgXml} from 'react-native-svg';
@@ -9,7 +9,7 @@ import fontSize from '../../utilities/fontSize';
 import fontFamily from '../../utilities/fontFamily';
 import currency from '../../utilities/currency';
 
-const OrderCard = ({item, onPress, showUser = true, showSubItems = false}) => {
+const OrderCard = ({item, type, onPress, RPress, APress, CPress, showUser = true, showSubItems = false}) => {
   const userIco = `
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_344_3008)">
@@ -192,17 +192,80 @@ const OrderCard = ({item, onPress, showUser = true, showSubItems = false}) => {
           </Text>
         </Text>
         ) : (
+          <>
+          {item.o_status == 1 ? (
           <Text
           style={{
             fontSize: 10,
             color: colors.black,
             fontFamily: fontFamily.medium,
           }}>
-          <Text style={{color: 'red'}}>On Hold</Text>
-          
-        </Text>
+          <Text style={{color: 'red'}}>Pending</Text>          
+          </Text>
+          ):
+          <Text
+          style={{
+            fontSize: 10,
+            color: colors.black,
+            fontFamily: fontFamily.medium,
+          }}>
+          <Text style={{color: 'red'}}>On Hold</Text>          
+          </Text>}
+        </>
         )}
       </View>
+      {type === 'Pending' ? (
+      <View style={{
+        height:50,
+        width:'100%',
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between'
+      }}>
+        <TouchableOpacity
+        onPress={RPress}
+        style={{
+          height:40,
+          width:'44%',
+          borderRadius:100,
+          alignItems:'center',
+          justifyContent:'center',
+          borderWidth:1,
+          borderColor:'red'
+        }}>
+          <Text style={{color:'red'}}>Reject</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+        onPress={APress}
+        style={{
+          height:40,
+          width:'44%',
+          borderRadius:100,
+          alignItems:'center',
+          justifyContent:'center',
+          borderWidth:1,
+          borderColor:colors.primary
+        }}>
+          <Text style={{color:colors.primary}}>Accept</Text>
+        </TouchableOpacity>
+      </View>
+      ):null}
+      {type === 'Accepted' ? (
+      <TouchableOpacity
+      onPress={CPress}
+        style={{
+          height:40,
+          width:'44%',
+          borderRadius:100,
+          alignItems:'center',
+          justifyContent:'center',
+          marginTop:5,
+          borderWidth:1,
+          borderColor:colors.primary
+        }}>
+          <Text style={{color:colors.primary}}>Complete</Text>
+        </TouchableOpacity>
+        ):null}
     </Pressable>
   );
 };

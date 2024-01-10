@@ -10,17 +10,22 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {api} from '../../constant/api';
 import OrderLoading from '../../components/Placeholders/OrderLoading';
 import EmptyImage from '../../components/EmptyImage';
+import { useUserStore } from '../../constant/store';
 
-const Index = () => {
+const Index = (props) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchPendingOrders();
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     fetchPendingOrders();
+  //   }, []),
+  // );
+
+  useEffect(() => {
+    fetchPendingOrders();
+  },[props])
 
   const fetchPendingOrders = async () => {
     try {
@@ -30,7 +35,25 @@ const Index = () => {
       });
       setLoading(false);
       if (res.data.status === 'success') {
+        console.log(res.data.data[0])
         setOrders(res.data.data);
+      }
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  const updatePendingOrders = async (id,status,o_customer_id) => {
+    try {
+      setLoading(true);
+      const res = await api.post(`/ordersstatus`, {
+        status: status,
+        order_id:id,
+        user_id:o_customer_id,
+      });
+      if (res.data.status === 'success') {
+        console.log(res.data)
+        fetchPendingOrders();
       }
     } catch (error) {
       setLoading(false);
@@ -45,6 +68,9 @@ const Index = () => {
           data: item,
         })
       }
+      type={'Pending'}
+      RPress={() => {updatePendingOrders(item?.order_id,'3',item?.o_customer_id)}}
+      APress={() => {updatePendingOrders(item?.order_id,'1',item?.o_customer_id)}}
       item={item}
     />
   );

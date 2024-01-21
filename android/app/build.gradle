@@ -94,9 +94,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.maspes.admin"
+    namespace "com.jalalajarra.Admin"
     defaultConfig {
-        applicationId "com.maspes.admin"
+        applicationId "com.jalalajarra.Admin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

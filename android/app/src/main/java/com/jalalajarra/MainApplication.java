@@ -1,4 +1,4 @@
-package com.maspes.admin;
+package com.jalalajarra.Admin;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

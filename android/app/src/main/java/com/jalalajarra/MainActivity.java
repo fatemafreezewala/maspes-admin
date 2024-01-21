@@ -1,4 +1,4 @@
-package com.maspes.admin;
+package com.jalalajarra.Admin;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

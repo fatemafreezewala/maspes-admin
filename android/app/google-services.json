@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:622800173238:android:d331f733be03377d6ece17",
         "android_client_info": {
-          "package_name": "com.maspes.admin"
+          "package_name": "com.jalalajarra.app"
         }
       },
       "oauth_client": [],
@@ -28,7 +28,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:622800173238:android:0e5b996db0ca48c76ece17",
         "android_client_info": {
-          "package_name": "com.maspes.restautant"
+          "package_name": "com.jalalajarra.app"
         }
       },
       "oauth_client": [],

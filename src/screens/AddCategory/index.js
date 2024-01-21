@@ -80,7 +80,9 @@ const AddCategory = ({route, navigation}) => {
     // }
     handleAddCategory();
   };
-
+   const getFileExt = (uri) => {
+    return uri?.split(/[#?]/)[0]?.split('.')?.pop()?.trim();
+  };
   const handleAddCategory = async () => {
     try {
       setLoading(true);
@@ -95,7 +97,7 @@ const AddCategory = ({route, navigation}) => {
           fd.append('category_image', {
             uri: image.path,
             type: image.mime,
-            name: image.filename,
+            name:`${Math.random().toString()}.${getFileExt(image.path)}`,
           });
         } else {
           fd.append('category_image', data?.category_image);
@@ -104,9 +106,10 @@ const AddCategory = ({route, navigation}) => {
         fd.append('category_image', {
           uri: image.path,
           type: image.mime,
-          name: image.filename,
+          name:`${Math.random().toString()}.${getFileExt(image.path)}`,
         });
       }
+      console.log(fd)
       const res = await api.put('/category', fd, {
         headers: {
           'Content-Type': 'multipart/form-data',

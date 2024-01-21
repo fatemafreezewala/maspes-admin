@@ -97,7 +97,9 @@ const AddProduct = ({route, navigation}) => {
     }
     handleAddProduct();
   };
-
+  const getFileExt = (uri) => {
+    return uri?.split(/[#?]/)[0]?.split('.')?.pop()?.trim();
+  };
   const handleAddProduct = async () => {
     try {
       setLoading(true);
@@ -122,7 +124,7 @@ const AddProduct = ({route, navigation}) => {
           fd.append('prod_name_image', {
             uri: image.path,
             type: image.mime,
-            name: image.filename,
+            name:`${Math.random().toString()}.${getFileExt(image.path)}`,
           });
         } else {
           fd.append('prod_name_image', data?.prod_name_image);
@@ -131,7 +133,7 @@ const AddProduct = ({route, navigation}) => {
         fd.append('prod_name_image', {
           uri: image.path,
           type: image.mime,
-          name: image.filename,
+          name:`${Math.random().toString()}.${getFileExt(image.path)}`,
         });
       }
       const res = await api.put('/product', fd, {
